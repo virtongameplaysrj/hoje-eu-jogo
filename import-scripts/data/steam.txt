@@ -1,0 +1,1453 @@
+10|Counter-Strike|0|0
+20|Team Fortress Classic|0|0
+30|Day of Defeat|0|0
+40|Deathmatch Classic|0|0
+50|Half-Life: Opposing Force|0|0
+60|Ricochet|0|0
+70|Half-Life|0|0
+80|Counter-Strike: Condition Zero|0|0
+100|Counter-Strike: Condition Zero Deleted Scenes|0|0
+130|Half-Life: Blue Shift|0|0
+220|Half-Life 2|0|0
+240|Counter-Strike: Source|0|0
+280|Half-Life: Source|0|0
+300|Day of Defeat: Source|0|0
+320|Half-Life 2: Deathmatch|0|0
+360|Half-Life Deathmatch: Source|0|0
+400|Portal|2|0
+500|Left 4 Dead|0|0
+550|Left 4 Dead 2|26|0
+620|Portal 2|69|0
+730|Counter-Strike 2|3005|0
+2270|Wolfenstein 3D|0|0
+2280|DOOM + DOOM II|48|0
+2290|Final DOOM|0|0
+2300|DOOM II|0|0
+2620|Call of Duty (2003)|0|0
+2630|Call of Duty 2|0|0
+2640|Call of Duty: United Offensive|0|0
+3720|Evil Genius|0|0
+4500|S.T.A.L.K.E.R.: Shadow of Chernobyl|10|0
+4850|Cossacks: Back to War|5|0
+6000|STAR WARS™ Republic Commando|270|0
+6020|STAR WARS™ Jedi Knight: Jedi Academy™|712|0
+6030|STAR WARS™ Jedi Knight II: Jedi Outcast™|0|0
+6060|Star Wars: Battlefront 2 (Classic, 2005)|25|0
+6860|Hitman: Blood Money|76|0
+7000|Tomb Raider: Legend|0|0
+7650|X-COM: Terror from the Deep|0|0
+7660|X-COM: Apocalypse|0|0
+7670|BioShock|305|0
+7730|X-COM: Interceptor|0|0
+7760|X-COM: UFO Defense|17|0
+7770|X-COM: Enforcer|0|0
+7940|Call of Duty 4: Modern Warfare (2007)|0|0
+8000|Tomb Raider: Anniversary|424|0
+8500|EVE Online|0|0
+8850|BioShock 2|0|0
+8870|BioShock Infinite|0|0
+8980|Borderlands GOTY|0|0
+9000|Wolfenstein 3D: Spear of Destiny|0|0
+9010|Return to Castle Wolfenstein|0|0
+9050|DOOM 3|0|0
+9070|DOOM 3: Resurrection of Evil|0|0
+9160|Master Levels for DOOM II|0|0
+10090|Call of Duty: World at War|34|0
+10180|Call of Duty: Modern Warfare 2 (2009)|0|0
+10190|Call of Duty: Modern Warfare 2 (2009) - Multiplayer|0|0
+12100|Grand Theft Auto III|12|0
+12110|Grand Theft Auto: Vice City|11|0
+12120|Grand Theft Auto: San Andreas|126|0
+12210|Grand Theft Auto IV: The Complete Edition|199|0
+12230|Grand Theft Auto III|0|0
+12240|Grand Theft Auto: Vice City|0|0
+12250|Grand Theft Auto: San Andreas|0|0
+13570|Tom Clancy's Splinter Cell: Chaos Theory|0|0
+15100|Assassin's Creed|820|0
+20510|S.T.A.L.K.E.R.: Clear Sky|0|0
+20900|The Witcher: Enhanced Edition|305|0
+20920|The Witcher 2: Assassins of Kings Enhanced Edition|0|0
+21000|LEGO® Batman™: The Videogame|0|0
+22320|The Elder Scrolls III: Morrowind|26|0
+22330|The Elder Scrolls IV: Oblivion Game of the Year Edition (2009)|11|0
+22380|Fallout: New Vegas|122|0
+24010|Train Simulator Classic|7|0
+24780|SimCity 4 Deluxe|0|0
+29720|Guild Wars® Reforged|100|0
+29900|Dark Sector|0|0
+32330|LEGOⓇ Indiana Jones™: The Original Adventures|0|0
+32370|STAR WARS™ Knights of the Old Republic™|781|0
+32400|STAR WARS™: Dark Forces|0|0
+32440|LEGO® Star Wars™: The Complete Saga|341|0
+32470|STAR WARS™ Empire at War: Gold Pack|36|0
+32510|LEGO® Star Wars™ III: The Clone Wars™|0|0
+33230|Assassin's Creed II|2286|0
+33910|Arma 2|412|0
+33930|Arma 2: Operation Arrowhead|324|0
+34190|Sonic and SEGA All Stars Racing|41|0
+34270|SEGA Mega Drive & Genesis Classics|0|0
+34330|Total War: SHOGUN 2|0|0
+35140|Batman: Arkham Asylum GOTY Edition|269|0
+39210|FINAL FANTASY XIV Online|2235|0
+40990|Mafia|0|0
+41700|S.T.A.L.K.E.R.: Call of Pripyat|0|0
+42680|Call of Duty®: Modern Warfare® 3 (2011)|0|0
+42690|Call of Duty®: Modern Warfare® 3 (2011) - Multiplayer|0|0
+42700|Call of Duty: Black Ops|0|0
+42710|Call of Duty: Black Ops - Multiplayer|0|0
+43160|Metro: Last Light Complete Edition|0|0
+44350|GRID 2|0|0
+48190|Assassin's Creed Brotherhood|1|0
+48700|Mount & Blade: Warband|0|0
+49520|Borderlands 2|879|0
+50620|Darksiders|20|0
+65790|Arma: Cold War Assault Remastered|0|0
+65800|Dungeon Defenders|0|0
+65930|The Bureau: XCOM Declassified|0|0
+71250|Sonic Adventure DX|0|0
+71340|Sonic Generations|0|0
+72850|The Elder Scrolls V: Skyrim|6928|0
+91200|Anomaly Warzone Earth|0|0
+94300|The Dream Machine|0|0
+102600|Orcs Must Die!|0|0
+105450|Age of Empires® III (2007)|0|0
+105600|Terraria|14|0
+107410|Arma 3|343|0
+108600|Project Zomboid|19|0
+108710|Alan Wake|19|0
+113200|The Binding of Isaac|35|0
+200260|Batman: Arkham City GOTY|0|0
+200510|XCOM: Enemy Unknown|8|0
+200940|Sonic CD|0|0
+201790|Orcs Must Die! 2|0|0
+201810|Wolfenstein: The New Order|0|0
+201870|Assassin's Creed Revelations|0|0
+202530|SONIC THE HEDGEHOG 4 Episode I|0|0
+202970|Call of Duty: Black Ops II|6|0
+202990|Call of Duty: Black Ops II - Multiplayer|0|0
+203140|Hitman: Absolution|0|0
+203160|Tomb Raider|0|0
+203650|SONIC THE HEDGEHOG 4 Episode II|0|0
+203770|Crusader Kings II|0|0
+204030|Fable - The Lost Chapters|0|0
+205100|Dishonored|544|0
+205930|Hitman: Sniper Challenge|0|0
+208140|ENDLESS Space™ - Definitive Edition|0|0
+208200|DOOM 3: BFG Edition|0|0
+208580|STAR WARS™ Knights of the Old Republic™ II: The Sith Lords™|0|0
+208650|Batman™: Arkham Knight|0|0
+209000|Batman™: Arkham Origins|0|0
+211820|Starbound|0|0
+212500|The Lord of the Rings Online™|1103|0
+212910|Call of Duty: Black Ops II - Zombies|1|0
+213330|LEGO® Batman™ 2: DC Super Heroes|0|0
+213610|Sonic Adventure™ 2 |0|0
+214340|Deponia|0|0
+214510|LEGO® The Lord of the Rings™|16|0
+218230|PlanetSide 2|10777|0
+218620|PAYDAY 2|106|0
+219150|Hotline Miami|0|0
+219540|Arma 2: Operation Arrowhead Beta (Obsolete)|0|0
+219740|Don't Starve|49|0
+219950|NiGHTS into Dreams...|0|0
+220440|DmC Devil May Cry|0|0
+220820|Zombie Driver HD|0|0
+221380|Age of Empires II (2013)|147|0
+222880|Insurgency|749|0
+223710|Cry of Fear|0|0
+223750|DCS World Steam Edition|1356|0
+223850|3DMark|1|0
+224260|No More Room in Hell|0|0
+224580|Arma 2: DayZ Mod|10|0
+224980|Tomb Raider: The Last Revelation (1999)|0|0
+225300|Tomb Raider II|42|0
+225320|Tomb Raider III: Adventures of Lara Croft|0|0
+226620|Desktop Dungeons|0|0
+226840|Age of Wonders III|0|0
+227300|Euro Truck Simulator 2|93|0
+227940|Heroes & Generals|0|0
+230410|Warframe|3859|0
+231350|3DMark Demo|3|0
+231430|Company of Heroes 2|0|0
+232090|Killing Floor 2|1244|0
+232770|POSTAL|0|0
+234080|Castlevania: Lords of Shadow - Ultimate Edition|0|0
+234140|Mad Max|0|0
+235460|METAL GEAR RISING: REVENGEANCE|63|0
+235900|RPG Maker XP|0|0
+236430|DARK SOULS™ II|0|0
+236730|Anomaly 2|0|0
+236870|HITMAN™|0|0
+238370|Magicka 2|47|0
+238960|Path of Exile|1|0
+242050|Assassin's Creed IV Black Flag|0|0
+242700|Injustice: Gods Among Us Ultimate Edition|0|0
+247350|Artemis Spaceship Bridge Simulator|0|0
+247430|Hitman: Contracts|0|0
+249050|Dungeon of the ENDLESS™|0|0
+249990|FORCED|0|0
+250180|METAL SLUG 3|8|0
+251530|Anomaly Korea|0|0
+251870|Go! Go! Nippon! ~My First Trip to Japan~|0|0
+251950|WWII Online|0|0
+252130|Divide by Sheep|0|0
+252150|Grimm|0|0
+252170|Anomaly Warzone Earth Mobile Campaign|0|0
+252490|Rust|395|0
+252530|OMSI 2|254|0
+252950|Rocket League|716|0
+253710|theHunter Classic|0|0
+261570|Ori and the Blind Forest|0|0
+261640|Borderlands: The Pre-Sequel|19|0
+261880|Corporate Lifestyle Simulator|0|0
+265000|FORCED SHOWDOWN|0|0
+265630|Fistful of Frags|400|0
+266310|GameGuru Classic|0|0
+268500|XCOM 2|0|0
+268910|Cuphead|91|0
+269950|X-Plane 11|110|0
+274190|Broforce|0|0
+274940|Depth|63|0
+274980|Influent|0|0
+275390|Guacamelee! Super Turbo Championship Edition|0|0
+275850|No Man's Sky|0|0
+282100|Fearless Fantasy|0|0
+282560|RollerCoaster Tycoon World|0|0
+282800|100% Orange Juice|0|0
+283640|Salt and Sanctuary|99|0
+284160|BeamNG.drive|53|0
+285310|RollerCoaster Tycoon: Deluxe|0|0
+285330|RollerCoaster Tycoon 2: Triple Thrill Pack|0|0
+286690|Metro 2033 Redux|419|0
+287390|Metro: Last Light Redux|0|0
+287700|METAL GEAR SOLID V: THE PHANTOM PAIN|0|0
+288470|Fable Anniversary|776|0
+289130|ENDLESS Legend™|0|0
+289690|Lara Croft and the Temple of Osiris|0|0
+292030|The Witcher 3: Wild Hunt — Remastered|1044|0
+294750|Anomaly Defenders|0|0
+297130|Titan Souls|0|0
+301520|Robocraft|0|0
+306130|The Elder Scrolls Online|3473|0
+307690|Sleeping Dogs: Definitive Edition|35|0
+307960|IL-2 Sturmovik: Battle of Stalingrad|1220|0
+308600|Skillshot City|0|0
+310560|DiRT Rally|30|0
+310950|Street Fighter V|0|0
+311340|METAL GEAR SOLID V: GROUND ZEROES|0|0
+311560|Assassin's Creed Rogue|0|0
+311770|LEGO® Pirates of the Caribbean The Video Game|0|0
+312200|Chasm|0|0
+312660|Sniper Elite 4|58|0
+313690|LEGO® Batman™ 3: Beyond Gotham|0|0
+314160|Microsoft Flight Simulator X: Steam Edition|50|0
+314650|SpaceEngine|0|0
+319630|Life is Strange™|0|0
+321270|UNLOVED|0|0
+322330|Don't Starve Together|0|0
+323190|Frostpunk|68|0
+323470|DRAGON BALL XENOVERSE|28|0
+323580|Jotun: Valhalla Edition|0|0
+325180|AppGameKit Classic|0|0
+327140|Tilt Brush|0|0
+329050|Devil May Cry 4 Special Edition|0|0
+329440|Sonic Lost World|0|0
+335190|200% Mixed Juice!|0|0
+335240|Transformice|0|0
+335300|DARK SOULS™ II: Scholar of the First Sin|0|0
+339040|Chicken Little|70|0
+344740|CRYPTARK|15|0
+348510|Autobahn Police Simulator|0|0
+350080|Wolfenstein: The Old Blood |0|0
+350300|Gang of Four|0|0
+351100|Niffelheim|0|0
+351510|Quiplash|0|0
+356190|Middle-earth™: Shadow of War™|13|0
+356500|STAR WARS™ Galactic Battlegrounds Saga|50|0
+356650|Death's Gambit: Afterlife|19|0
+359320|Elite Dangerous|155|0
+359550|Tom Clancy's Rainbow Six Siege|1110|0
+360730|Cards and Castles|0|0
+362890|Black Mesa|166|0
+364470|The Elder Scrolls: Legends|0|0
+365590|Tom Clancy's The Division|186|0
+365720|Skyrim Script Extender (SKSE)|1|0
+366250|METAL SLUG|0|0
+367500|Dragon's Dogma: Dark Arisen|178|0
+367520|Hollow Knight|196|0
+367540|Starbound - Unstable|0|0
+368180|Polyball|0|0
+370870|Dark Future: Blood Red States|0|0
+370910|Kathy Rain|0|0
+371140|Aegis Defenders|0|0
+371970|Barony|7|0
+372000|Tree of Savior (English Ver.)|0|0
+374320|DARK SOULS™ III|9|0
+377160|Fallout 4|0|0
+379430|Kingdom Come: Deliverance|54|0
+379720|DOOM|659|0
+383180|Dead Island Riptide Definitive Edition|0|0
+383270|Hue|0|0
+387290|Ori and the Blind Forest: Definitive Edition|0|0
+388840|CATS!|0|0
+389140|Horizon Chase Turbo|0|0
+390710|Acceleration of SUGURI 2|0|0
+391220|Rise of the Tomb Raider|0|0
+391720|Layers of Fear (2016)|0|0
+393380|Squad|524|0
+393390|Cat Simulator|0|0
+394510|HELLDIVERS™|103|0
+396900|GRIP: Combat Racing|0|0
+397080|Magicka 2: Spell Balance Beta|0|0
+397540|Borderlands 3|0|0
+398170|Evochron Legacy SE|104|0
+399810|Call of Cthulhu|0|0
+403640|Dishonored 2|0|0
+405820|Turok|0|0
+406970|The Uncertain: Last Quiet Day|0|0
+408410|X-Morph: Defense|0|0
+409710|BioShock Remastered|37|0
+409720|BioShock 2 Remastered|0|0
+413150|Stardew Valley|0|0
+414160|Nubarron: The adventure of an unlucky gnome|0|0
+414340|Hellblade: Senua's Sacrifice|265|0
+418270|Draw Slasher|0|0
+418670|Pankapu|0|0
+420290|Blackwake|1031|0
+420740|The Deed|0|0
+427290|Vampyr|0|0
+427460|Battlerite Public Test|0|0
+431930|Kabounce|0|0
+431960|Wallpaper Engine|546|0
+435120|Rusty Lake Hotel|0|0
+435150|Divinity: Original Sin 2|119|0
+435790|10 Second Ninja X|0|0
+436520|Line of Sight|0|0
+440000|Portal 2: Community Edition|0|0
+441380|PAC-MAN™ CHAMPIONSHIP EDITION 2|0|0
+442070|Drawful 2|0|0
+442120|Pinball FX Classic|0|0
+443910|TGV Voyages Train Simulator|0|0
+444090|Paladins|246|0
+447040|Watch_Dogs 2|99|0
+447700|Crystal Crisis|0|0
+447820|Day of Infamy|442|0
+449960|Book of Demons|0|0
+450390|The Lab|0|0
+451020|Battle Chasers: Nightwar|0|0
+454650|DRAGON BALL XENOVERSE 2|0|0
+457140|Oxygen Not Included|354|0
+459160|Allods Online|13795|0
+460790|Bayonetta|244|0
+460930|Tom Clancy's Ghost Recon® Wildlands|0|0
+460950|Katana ZERO|218|0
+461040|PICO PARK:Classic Edition|0|0
+462780|Darksiders Warmastered Edition|9|0
+464920|Surviving Mars|0|0
+476600|Call of Duty: WWII|0|0
+476620|Call of Duty: WWII - Multiplayer|0|0
+481870|Mini Thief|0|0
+489520|Minion Masters|0|0
+489630|Warhammer 40,000: Gladius - Relics of War|0|0
+489830|The Elder Scrolls V: Skyrim Special Edition|95|0
+493340|Planet Coaster|0|0
+493540|Figment|0|0
+494840|UBOAT|39|0
+498720|Inklings|0|0
+504130|Manual Samuel - Last Tuesday Edition|0|0
+504210|SHENZHEN I/O|0|0
+504370|Battlerite|403|0
+505460|Foxhole|484|0
+507490|Ashes of the Singularity: Escalation|0|0
+521890|Hello Neighbor|0|0
+522210|Serial Cleaner|0|0
+524220|NieR:Automata™|56|0
+524440|Tom Clancy's The Division PTS|0|0
+528230|SYNTHETIK|0|0
+532210|Life is Strange 2|0|0
+535480|Sundered: Eldritch Edition|87|0
+535930|Two Point Hospital|0|0
+537800|Bomber Crew|0|0
+544330|Snake Pass|0|0
+544520|The Puppet Master|0|0
+544610|Battlestar Galactica Deadlock|0|0
+544750|SOULCALIBUR VI|0|0
+544810|KARDS - The WWII Card Game|0|0
+548430|Deep Rock Galactic|782|0
+552500|Warhammer: Vermintide 2|0|0
+552990|World of Warships|0|0
+553850|HELLDIVERS™ 2|6102|0
+555000|GOAT OF DUTY|0|0
+557340|My Friend Pedro|0|0
+559100|Phantom Doctrine|0|0
+561770|Just Ignore Them|0|0
+562500|Warstone TD|0|0
+565110|Mobile Astro|0|0
+566190|The Search|0|0
+567730|Merry Snowballs|0|0
+569610|Distant Space|0|0
+570940|DARK SOULS™: REMASTERED|295|0
+573120|Dead In Vinland|0|0
+573410|AI War 2|0|0
+574720|Little Big Workshop|0|0
+576500|Evergarden|0|0
+577940|Killer Instinct|0|0
+578080|PUBG: BATTLEGROUNDS|4716|0
+579110|Interkosmos|0|0
+582010|Monster Hunter: World|0|0
+582160|Assassin's Creed Origins|0|0
+582660|Black Desert|0|0
+582890|Estranged: The Departure|0|0
+584210|Tom Clancy's Ghost Recon Wildlands Open Beta|0|0
+584400|Sonic Mania|0|0
+585420|Trailmakers|0|0
+587620|Okami HD|0|0
+588030|Derail Valley|479|0
+588210|HELLION|0|0
+588650|Dead Cells|557|0
+596350|Paladins - Public Test|0|0
+596970|Sunless Skies|104|0
+599140|Graveyard Keeper|0|0
+600430|Ticket to Ride: First Journey|0|0
+601150|Devil May Cry 5|0|0
+601360|Portal: Revolution|0|0
+602960|Barotrauma|20|0
+606150|Moonlighter|0|0
+607050|Wargroove|0|0
+609320|FAR: Lone Sails|22|0
+611500|Quake Champions|107|0
+613100|House Flipper|0|0
+613900|Museum of Other Realities|0|0
+614570|Dishonored®: Death of the Outsider™ |0|0
+616560|Ultimate Epic Battle Simulator|0|0
+617290|Remnant: From the Ashes|310|0
+618140|Barro|0|0
+620590|Ancestors Legacy|0|0
+620620|Pirate101|0|0
+622630|Bendy: Secrets of the Machine|0|0
+623990|Tom Clancy's Rainbow Six Siege - Test Server|28|0
+628950|Nephise Begins|0|0
+629730|Blade & Sorcery|270|0
+631510|Devil May Cry HD Collection|9|0
+631570|Whispers of a Machine|0|0
+632360|Risk of Rain 2|370|0
+632470|Disco Elysium|28|0
+637100|Sonic Forces|0|0
+638490|Soldat|0|0
+640160|Galactic Glitch: Prologue|0|0
+640590|The LEGO® NINJAGO® Movie Video Game|0|0
+640820|Pathfinder: Kingmaker|0|0
+640890|Will Glow the Wisp|0|0
+646570|Slay the Spire|7|0
+660160|Field of Glory II|0|0
+661940|Regular Human Basketball|0|0
+666140|My Time at Portia|0|0
+667970|VTOL VR|39|0
+675010|MudRunner|237|0
+675690|Tribal Wars|0|0
+678960|CODE VEIN|0|0
+680360|Regions Of Ruin|0|0
+680380|Night Call|0|0
+681330|Helium Rain|0|0
+681660|Bless Online|510|0
+683900|RollerCoaster Tycoon Classic|116|0
+684680|Polygoneer|0|0
+688420|Bad North: Jotunn Edition|0|0
+690140|Sword Legacy Omen|0|0
+690790|DiRT Rally 2.0|7|0
+698780|Doki Doki Literature Club|0|0
+699170|Fell Seal: Arbiter's Mark|0|0
+699240|Keyboard Killers|0|0
+700580|Rust - Staging Branch|0|0
+702150|Project Mercury|0|0
+705040|HAWKEN REBORN|0|0
+706220|Black Desert SA (Retired)|0|0
+709510|Towards The Pantheon|0|0
+712190|Genesis Alpha One Deluxe Edition|0|0
+714010|Aimlabs|141|0
+716500|Eliza|0|0
+717610|A Case of Distrust|0|0
+719200|The Wall|0|0
+727020|Arcade Moonlander|0|0
+729040|Borderlands GOTY Enhanced|0|0
+729660|Blackout Z: Slaughterhouse Edition|0|0
+731490|Crash Bandicoot™ N. Sane Trilogy|96|0
+735580|11-11 Memories Retold|0|0
+736590|Operation: Harsh Doorstop|0|0
+737800|F1 2018|0|0
+738520|Breathedge|0|0
+739630|Phasmophobia|24|0
+742500|Nonogram - Master's Legacy|0|0
+744900|Dead Frontier 2|0|0
+747350|Hellblade: Senua's Sacrifice VR Edition|0|0
+750920|Shadow of the Tomb Raider|0|0
+758330|Shenmue I & II|0|0
+760620|Deiland|0|0
+761890|Albion Online|0|0
+769970|Bad Dream: Fever|0|0
+771580|Mad World MMO|0|0
+774361|Blasphemous|41|0
+774941|Squad - Public Testing|0|0
+776270|MineCart Adventures|0|0
+777880|Fluffy Horde|0|0
+780800|Ball laB|0|0
+782330|DOOM Eternal|0|0
+783850|Derpy pirates! The search for the bungalow|0|0
+784150|Workers & Resources: Soviet Republic|4|0
+785260|Team Sonic Racing™|0|0
+787760|Toribash Next|0|0
+792200|Dynast.io|0|0
+797410|Headsnatchers|0|0
+799960|Wizard101|0|0
+803330|Destroy All Humans!|261|0
+805550|Assetto Corsa Competizione|36|0
+812140|Assassin's Creed Odyssey|0|0
+812160|Etherborn|0|0
+812810|missed messages.|0|0
+814200|Simple Story - Alex|0|0
+814380|Sekiro™: Shadows Die Twice|82|0
+822540|Escape From Tethys|0|0
+824270|KovaaK's|523|0
+829590|CryoFall|0|0
+834530|Yakuza Kiwami (Legacy)|0|0
+835570|Conqueror's Blade|0|0
+835950|Transpose|0|0
+844050|Desert Child|0|0
+845070|The Awesome Adventures of Captain Spirit|0|0
+847370|Sunset Overdrive|1|0
+848550|Welcome Back To 2007 Part II|0|0
+860950|Mark of the Ninja: Remastered|36|0
+863400|Feud|0|0
+863550|HITMAN™ 2|0|0
+865360|We Were Here Together|0|0
+869420|Jailbreak Lockdown|0|0
+869480|Jabroni Brawl: Episode 3|0|0
+870780|Control Ultimate Edition|585|0
+872350|Zombie Killing Simulator|0|0
+876850|WhiteLily 1：丽丽公主|0|0
+877150|Gravity Wars|0|0
+882590|Outcast Tales: The First Journey|0|0
+883680|Four Kings One War|0|0
+883710|Resident Evil 2|20|0
+886250|Vegas Infinite by PokerStars|0|0
+887400|THE GREAT GEOMETRIC MULTIVERSE TOUR|0|0
+892970|Valheim|26|0
+893680|Project Warlock|0|0
+906870|FurryFury|0|0
+908520|fpsVR|424|0
+911400|Assassin's Creed III Remastered|0|0
+916730|Gato Roboto|0|0
+920210|LEGO® Star Wars™: A Saga Skywalker|0|0
+926390|Infected Shelter|0|0
+928600|F1 2019|1|0
+933110|Age of Empires III: Definitive Edition|0|0
+934780|American Fugitive|0|0
+939620|趣拼拼：肖像画 Pleasure Puzzle:Portrait|0|0
+945360|Among Us|76|0
+949060|Love Thyself - A Horatio Story|0|0
+952130|Origin of Decay|0|0
+960420|Hello Neighbor: Hide and Seek|0|0
+961200|Predecessor|0|0
+962130|Grounded|2021|0
+963400|SCP: Blackout|0|0
+976730|Halo: The Master Chief Collection|550|0
+979920|Supremacy 1914|0|0
+981600|Eternium|0|0
+984800|Automachef|0|0
+993090|Lossless Scaling|356|0
+996580|Spyro™ Reignited Trilogy|0|0
+1003090|Through The Darkest of Times|0|0
+1007040|EARTH DEFENSE FORCE 5|10|0
+1008080|SYNCED|0|0
+1008690|Lost Daughter|0|0
+1011300|UNI|0|0
+1016920|Unrailed!|0|0
+1020330|Khan VS Kahn|0|0
+1020910|Sefirot Shards|0|0
+1022310|Warhammer Underworlds - Shadespire Edition|0|0
+1025440|Fantasy General II|0|0
+1045720|The Coma 2: Vicious Sisters|0|0
+1046930|Dota Underlords|1|0
+1048540|Kao the Kangaroo: Round 2|0|0
+1049590|Eternal Return|0|0
+1052920|Caelus Trident|0|0
+1058020|STAR WARS™ Battlefront (Classic, 2004)|379|0
+1060320|One Drop Bot|0|0
+1063590|Rogue Masters|0|0
+1066890|Automobilista 2|17|0
+1069190|Flight Of Nova|394|0
+1076280|Showdown Bandit|0|0
+1076530|Drop|0|0
+1076600|Red Gate|0|0
+1078000|Gamecraft|0|0
+1079620|Infinity: Battlescape|56|0
+1083500|PlanetSide 2 - Test|0|0
+1084840|Living Dead|0|0
+1085660|Destiny 2|0|0
+1086940|Baldur's Gate 3|243|0
+1089650|Project Zero Deaths|0|0
+1097150|Fall Guys|292|0
+1114940|I Wanna Maker|0|0
+1125480|初恋日记|0|0
+1129190|Our Life: Beginnings & Always|0|0
+1135570|Martian Law|0|0
+1140630|Red Wings|0|0
+1143450|DeltaBlade 2700|0|0
+1145360|Hades|613|0
+1147560|Skul: The Hero Slayer|81|0
+1151640|Horizon Zero Dawn™ Complete Edition|578|0
+1158450|GALAXIUM|0|0
+1158500|Between Two Castles - Digital Edition|0|0
+1160750|Grim Clicker|0|0
+1170880|Grimm's Hollow|0|0
+1172380|STAR WARS Jedi: Fallen Order™ |207|0
+1172470|Apex Legends|770|0
+1172620|Sea of Thieves|1354|0
+1172710|Dune: Awakening|5723|0
+1174180|Red Dead Redemption 2|23|0
+1176710|Space Crew: Legendary Edition|0|0
+1180660|Tell Me Why|0|0
+1183940|Scavengers|0|0
+1186160|All Day Dying: Redux Edition|0|0
+1190000|Car Mechanic Simulator 2021|64|0
+1203220|NARAKA: BLADEPOINT|0|0
+1217060|Gunfire Reborn|173|0
+1222140|Detroit: Become Human|0|0
+1222670|The Sims™ 4|0|0
+1222680|Need for Speed™ Heat|28|0
+1222700|A Way Out|0|0
+1222730|STAR WARS™: Squadrons|276|0
+1237950|STAR WARS™ Battlefront™ II|752|0
+1237970|Titanfall® 2|14|0
+1238840|Battlefield™ 1|2197|0
+1238860|Battlefield 4™ |105|0
+1240440|Halo Infinite|0|0
+1245620|ELDEN RING|208|0
+1249200|Ghostrunner Demo|71|0
+1257800|Hats and Hand Grenades|0|0
+1263240|Skate Story|89|0
+1266700|Destroy All Humans! 2 - Reprobed|0|0
+1273710|King of Crabs|0|0
+1283410|Tails of Iron|18|0
+1283700|SUPERVIVE|0|0
+1284210|Guild Wars 2®|722|0
+1284410|GWENT: The Witcher Card Game|0|0
+1286830|STAR WARS™: The Old Republic™|49|0
+1287800|Schwarzerblitz|0|0
+1288320|Way of the Hunter|7|0
+1290000|PowerWash Simulator|91|0
+1297660|Fragment's Moonrise|0|0
+1318690|shapez|0|0
+1324780|Easy Red 2|55|0
+1325200|Nioh 2 – The Complete Edition|34|0
+1328670|Mass Effect™ Legendary Edition|188|0
+1332010|Stray|230|0
+1336290|ARTHA|0|0
+1340180|Sherwood Extreme|0|0
+1343370|Old School RuneScape|0|0
+1343400|RuneScape|0|0
+1349830|RONIN: Two Souls CHAPTER 1|0|0
+1353300|Idle Slayer – Incremental RPG|0|0
+1360940|Hellfire Tactics|0|0
+1363430|Propagation VR|0|0
+1366850|Jected - Rivals|0|0
+1367080|MOBILE SUIT GUNDAM BATTLE OPERATION 2|0|0
+1368430|Streets Of Kamurocho|0|0
+1368440|Armor Of Heroes|0|0
+1368450|ENDLESS Zone™|0|0
+1368460|Golden Axed: A Cancelled Prototype|0|0
+1368820|RollerCoaster Tycoon® 3: Complete Edition|0|0
+1369320|Virtual Cottage|0|0
+1393680|Supreme Fighters|0|0
+1399780|Spellbreak|0|0
+1407200|World of Tanks|0|0
+1411460|Z Arena|0|0
+1413250|Republic of Jungle|0|0
+1426210|It Takes Two|0|0
+1426440|MICROVOLTS: Recharged|0|0
+1437820|三国群英传|0|0
+1442670|Hamster Playground|0|0
+1442910|Reign Of Dwarf|0|0
+1443350|DEAD CIDE CLUB|0|0
+1446780|MONSTER HUNTER RISE|152|0
+1448030|Press Any Button|0|0
+1458140|Pacific Drive|69|0
+1461130|LAVALAMP|0|0
+1482620|Slappyball|0|0
+1486630|Intravenous|0|0
+1507190|Machinika Museum|0|0
+1509650|I Am Jesus Christ: Prologue|0|0
+1514880|Zigglox|0|0
+1522820|Orcs Must Die! 3|122|0
+1535560|Farmer Against Potatoes Idle|0|0
+1536610|OpenTTD|152|0
+1537830|Disney Speedstorm|0|0
+1550340|The hardest game in the universe|0|0
+1551360|Forza Horizon 5|551|0
+1554400|Paint Chips|0|0
+1554590|ZED Patrol|0|0
+1568400|Sheepy: A Short Adventure|0|0
+1574360|Uncharted Waters Origin|0|0
+1578290|Pixel Fixel|0|0
+1591760|Undying Symphony|0|0
+1593500|God of War|2039|0
+1599340|Lost Ark|111|0
+1601840|House Builder: First Job|0|0
+1604030|V Rising|1028|0
+1607250|MY HERO ULTRA RUMBLE|0|0
+1609300|ENEMIES|0|0
+1612570|Death or Glory|0|0
+1628390|Starship Simulator Demo|0|0
+1662740|RunnerDot|0|0
+1670240|Echo of Ayllu|0|0
+1677470|GrandChase Classic|81|0
+1678150|World of Shooting|0|0
+1681430|RoboCop: Rogue City|9|0
+1693980|Dead Space|79|0
+1704450|ImmersiX|0|0
+1708150|Juice Galaxy|0|0
+1712840|Tiny Tina's Assault on Dragon Keep: A Wonderlands One-shot Adventure|0|0
+1719390|Cards and Castles 2|0|0
+1726530|Toaster Arena|0|0
+1726720|World of Grimm|0|0
+1728980|Astro Battlers TD|0|0
+1740720|Have a Nice Death|249|0
+1748180|Unsung Empires: The Cholas|0|0
+1749030|The Tipping Point|0|0
+1749630|Chill Corner|0|0
+1753400|Visite virtuelle de l'Assemblée nationale|0|0
+1757610|Puppet Master: The Game|0|0
+1768590|Dune Strider|0|0
+1776590|Dark Gravity: Prologue|0|0
+1782680|Caribbean Legend: Sandbox|0|0
+1794680|Vampire Survivors|73|0
+1812290|The Elder Scrolls: Arena|0|0
+1812390|The Elder Scrolls II: Daggerfall|0|0
+1815780|Asphalt Legends |0|0
+1817070|Marvel’s Spider-Man Remastered|1348|0
+1818180|The RPG Engine|0|0
+1818450|STALZONE|0|0
+1818590|You Are A Pilot|0|0
+1818750|MultiVersus|0|0
+1835240|Spiritfall|0|0
+1836550|Tap Wizard 2|0|0
+1850570|DEATH STRANDING DIRECTOR'S CUT|84|0
+1851530|MORE ENEMIES|0|0
+1868140|DAVE THE DIVER|66|0
+1869590|Omega Strikers|0|0
+1873030|Wolfenstein: Enemy Territory|0|0
+1873120|No Love Lost|0|0
+1881430|DeltaBlade 2700 Re:Create|0|0
+1886930|Out of the Mist|0|0
+1888930|The Last of Us™ Part I|0|0
+1895300|Shinobi Warfare|0|0
+1904310|Go Ace It|0|0
+1907040|EmptyEpsilon|0|0
+1916890|Slider|0|0
+1928210|Tumble Toys: Aviation|0|0
+1928420|Farlight 84|0|0
+1932570|Jaded|0|0
+1934370|Unbridled: Horse Designer|0|0
+1934780|VEILED EXPERTS|0|0
+1938090|Call of Duty®|0|0
+1938800|Alone in the Dark Prologue|0|0
+1946140|Jigsaw Puzzles Infinite|0|0
+1948430|Planet S|0|0
+1949480|AIRBORNE|0|0
+1954200|Kena: Bridge of Spirits|54|0
+1955440|Tick Tack Puppet|0|0
+1955960|HAWKED|0|0
+1963360|Yerr Out|0|0
+1966720|Lethal Company|56|0
+1967700|Miami Hotel Simulator Prologue|0|0
+1973530|Limbus Company|0|0
+1977530|One-armed cook|0|0
+1979640|7Groves|0|0
+1985170|Warhammer 40,000: Warpforge|0|0
+1991110|Another Day with You|0|0
+1991140|Robocraft 2|0|0
+1996230|Forest Of Tails: Arena|0|0
+1997040|MARVEL SNAP|0|0
+2000040|Space Menace|0|0
+2003060|Monsters Domain: Prologue|0|0
+2012510|Stormgate|0|0
+2014780|X-Plane 12|115|0
+2016590|Dark and Darker|0|0
+2018820|Elvera|0|0
+2019300|Dokimon|0|0
+2021230|Ashen Knights: One Passage|0|0
+2022330|The Riflemen|0|0
+2027170|SIMBA THE CAT|0|0
+2051500|Soak & Splash|0|0
+2057770|Zold:out 鍛造屋的物語|0|0
+2061750|Counterpact|0|0
+2067850|Drakensang Online|0|0
+2070580|Lord Ambermaze: Prologue|0|0
+2073850|THE FINALS|0|0
+2074920|The First Descendant|0|0
+2080210|My Hotel - Free Night|0|0
+2080820|SquadBlast|0|0
+2083160|Disfigure|0|0
+2093060|SoulBound|0|0
+2095890|Black Gunner Wukong: Prologue|0|0
+2102020|Different Strokes|0|0
+2102110|Speed the Card Game|0|0
+2103320|Screaming Noppy|0|0
+2104670|Plane Accident: Prologue|0|0
+2107170|Beyond the Mountains|0|0
+2107670|Warhaven|0|0
+2111190|Mullet Mad Jack|13|0
+2119740|United heist|0|0
+2133670|Perseus: Titan Slayer - Free Trial|0|0
+2134320|ENA: Dream BBQ|0|0
+2138570|Mutants: Genesis|0|0
+2138710|Sifu|53|0
+2139020|What the Fog|0|0
+2139460|Once Human|0|0
+2139870|Skelethrone: The Prey|0|0
+2141910|Magic: The Gathering Arena|0|0
+2142680|Kiki|0|0
+2142840|Light of Alariya|0|0
+2142850|Conjury Revell|0|0
+2143030|Cave Crawlers|0|0
+2143930|Spirits of Baciu - Prologue|0|0
+2147110|Builders of Greece: Prologue|0|0
+2152460|Miniland Adventure: Prologue|0|0
+2152990|Dinogen Online|0|0
+2167580|Summoners War: Chronicles|0|0
+2168600|In The Rural Village of Nagoro|0|0
+2168680|Nuclear Option|41|0
+2170420|Starsiege: Deadzone|0|0
+2173600|Beer Factory - Prologue|0|0
+2175210|Winter Survival: Prologue|0|0
+2180300|Void Sols: Prologue|0|0
+2186570|TELEFORUM|0|0
+2189040|Mean Beans|0|0
+2193440|HAWKED | Playtest|0|0
+2195910|Darkenstein 3D|0|0
+2196640|Engine Evolution 2023|0|0
+2197700|Gatekeeper: Eclipse|0|0
+2197910|Dawnlands|0|0
+2198150|Tiny Glade|7|0
+2198940|Just Hit The Button|0|0
+2199750|Shrieking Darkness: Reloaded|0|0
+2203070|Dragonheir: Silent Gods|0|0
+2207750|Extreme Tag!|0|0
+2209150|Above Snakes: Prologue|0|0
+2212110|Soprador de Folhas|0|0
+2215430|Ghost of Tsushima VERSÃO DO DIRETOR|2469|0
+2218960|STG Football|0|0
+2219660|Edemn|0|0
+2220360|Paper Lily - Chapter 1|0|0
+2229260|Eden Eternal|0|0
+2230990|Project Sphinx|0|0
+2234020|Iso Racer|0|0
+2237950|Tick, Tank, Boom|0|0
+2239140|Grapples Galore|0|0
+2240220|Ordinary Day|0|0
+2247560|Daydream: Prologue|0|0
+2248950|Trans-Siberian Railway Simulator: Prologue|0|0
+2250090|Missing Hiker|0|0
+2252330|Clicker Guardians|0|0
+2252360|Lesson Learned: Cult of the Elizabeth|0|0
+2253720|Sim Companies|0|0
+2254920|Temtem: Showdown|0|0
+2259130|Emil: A Hero's Journey|0|0
+2262170|Rose|0|0
+2277780|Ara and the Empty Universe|0|0
+2280440|Ogre Chambers DX|0|0
+2281730|Combat Master|0|0
+2287610|Wayfinder Beta|13|0
+2289970|In Sink: A Co-Op Escape Prologue|0|0
+2290490|Helpless|0|0
+2291130|Long Time No See|0|0
+2293900|ASURA|0|0
+2296990|We Were Here Expeditions: The FriendShip|0|0
+2297360|Deckweaver: Descent Into Chaos|0|0
+2304130|Grounded Sim: Steam Edition|0|0
+2308470|Pixel Wars|0|0
+2311950|Dreamkeeper|0|0
+2313250|Travellin Cats in Paris|0|0
+2321580|StormEdge: Wind of Change|0|0
+2322020|SeaFeud|0|0
+2324650|The Murder of Sonic the Hedgehog|0|0
+2325060|Alpacalypse|0|0
+2327340|Sleigh Strikers|0|0
+2328960|Flappy Souls|0|0
+2335130|FROM ASHES, BLOOM|0|0
+2337640|Pinball FX Midnight|0|0
+2338070|Airborne|0|0
+2338950|Sonho Estratégia Vou|0|0
+2340910|VDSC Battle Royal|0|0
+2343650|Waven|0|0
+2347110|Quasimorph: End of Dream|0|0
+2349250|Violations Will Be Punished|0|0
+2349820|Hero's Land|0|0
+2353040|LethalApplication リーサルアプリケーション|0|0
+2353730|Space Expedition|0|0
+2357570|Overwatch®|0|0
+2357760|The Jeffy Game|0|0
+2358050|Graalonline Era|0|0
+2358440|Monster Museum|0|0
+2361400|HEAVEN SEEKER Prologue|0|0
+2361510|Andarin Weppes: Pre-Dementia|0|0
+2363730|Escape Memoirs: Questionable Side Stories|0|0
+2364970|Revenge of the shadow ninja|0|0
+2366060|Weyrdlets 2.0 : Desktop Pets|0|0
+2367560|Home Designer Blast|0|0
+2367580|Bingo Beavers|0|0
+2370510|Deadlink: Prologue|0|0
+2371130|Duels of Fortune|0|0
+2371630|Sword Art Online: Integral Factor|0|0
+2373630|Moonring|0|0
+2376690|Highrise Guardian|0|0
+2381310|Genjiro: Samurai Defense|0|0
+2381670|The Sinking of the Dream Chaser|0|0
+2386580|Project Hardline|0|0
+2386720|STRAFTAT|0|0
+2390510|You Have 10 Seconds (2023)|0|0
+2391710|Gatekeeper: Infinity|0|0
+2398450|Classic Marathon|0|0
+2398490|Classic Marathon 2|0|0
+2398520|Classic Marathon Infinity|0|0
+2398550|Sect-Machina|0|0
+2403430|Soccer Kids Alpha|0|0
+2405270|Project Asteroids|0|0
+2406130|Verdict: Descent|0|0
+2406520|Mr. Semmel|0|0
+2406550|A Heart of Butterblue|0|0
+2410890|El Dorado: The Golden City Builder - Prologue|0|0
+2412410|Disco Simulator: Prologue|0|0
+2414010|Garage Flipper: Prologue|0|0
+2415010|A Date with Death|0|0
+2417360|Unreal Strike|0|0
+2421370|Cryptis|0|0
+2422080|Legendary Hoplite: Ajax’s Trial|0|0
+2422390|Citizens: On Mars - Prologue|0|0
+2422870|Taverna do Barbabronze|0|0
+2423710|Eldritchvania|0|0
+2425580|Ex Vitro|0|0
+2426960|Summoners War|0|0
+2427410|S.T.A.L.K.E.R.: Shadow of Chornobyl - Enhanced Edition|0|0
+2427420|S.T.A.L.K.E.R.: Clear Sky - Enhanced Edition|0|0
+2427430|S.T.A.L.K.E.R.: Call of Prypiat - Enhanced Edition|0|0
+2428770|Die in the Dungeon: Origins|0|0
+2429660|Throne and Liberty - Open Beta|0|0
+2430830|Strongblade|0|0
+2430990|Their Land|0|0
+2431090|FISHGUN|0|0
+2431130|Procrastinaut|0|0
+2431310|ANYU|0|0
+2431330|Galactic Grinder|0|0
+2432450|INVICTA: The Next Queen|0|0
+2432460|Born to Rise|0|0
+2433730|Unsorted Horror|0|0
+2434340|BLACK BOX LSS - 闪耀的永生者|0|0
+2435890|Snotty's Sewer|0|0
+2437170|SMITE 2|0|0
+2440730|Snoody: One of the Ayrie|0|0
+2441260|Event Race|0|0
+2442230|Brave Nine|0|0
+2445140|Turn on the light - Jigsaw|0|0
+2445260|Tyr|0|0
+2447060|Monster Tiles TD|0|0
+2448340|Try Again|0|0
+2448970|Dungeonborne|0|0
+2452850|Land Above Sea Below Prologue|0|0
+2455180|Moose Lost in the Woods|0|0
+2456080|Formula Evolution 2024|0|0
+2457040|Thyria: Step Into Dreams|0|0
+2460480|KILL CRAB|0|0
+2462150|The Richmond Rut (In Search of Fenton)|0|0
+2466680|Kebab Chefs: Prologue|0|0
+2467410|TIME HUNTERS: ミクイ黄金像の呪い|0|0
+2468560|Tay Son Dynasty|0|0
+2471100|Unnamed Space Idle|0|0
+2471780|Lost Connections|0|0
+2473980|Draw|0|0
+2480450|Pesticide Not Required: Prologue|0|0
+2481340|Quantum Rail|0|0
+2482190|Power Fantasy|0|0
+2484060|I, Toaster|0|0
+2484110|FINAL FANTASY VII EVER CRISIS|0|0
+2484250|ASTRA: Knights of Veda|0|0
+2484450|Edge Of Dead Prologue|0|0
+2484990|Asgard's Fall: Origins|0|0
+2485620|Astrality|0|0
+2485640|Infection Free Zone - Prologue|0|0
+2487070|Anonymous Hacker Simulator: Prologue|0|0
+2488630|Mannequin|0|0
+2489560|Elewar: Fused Survivors|0|0
+2489880|Guerra Sangrenta|0|0
+2491710|Asurya's Embers|0|0
+2491720|Kneedle Knight|0|0
+2492560|Labyrinth of Rage|0|0
+2494930|SLUDGE LIFE: The BIG MUD Sessions|0|0
+2495980|箭箭剑 Arrow a Row|0|0
+2496460|Tatari: The Arrival|0|0
+2497390|Viking Hiking|0|0
+2497550|Summum Aeterna: Prologue|0|0
+2502760|Wolvesville|0|0
+2503150|Coast Defender|0|0
+2505120|Plant Therapy|0|0
+2506950|The Karters 2: Turbo Charged - Prologue|0|0
+2507080|Cecelia|0|0
+2511180|Pixel Royale 3D|0|0
+2512160|Monday Meltdown|0|0
+2512820|BOOMEROAD|0|0
+2512830|NOTTOLOT|0|0
+2512840|DoronkoWanko|0|0
+2517000|BYLE|0|0
+2517810|The Last Flame: Prologue|0|0
+2517850|Toy Shire: Room One|0|0
+2519830|Resonite|0|0
+2520280|Powers in the Basement|0|0
+2520950|The Light in the Darkness|0|0
+2524580|Embers: Return to Dragonland|0|0
+2524680|Akatori: Сhapter One|0|0
+2524890|Pixel Gun 3D: PC Edition|0|0
+2526720|Extremely Powerful Capybaras: Training Grounds|0|0
+2527140|Platform Gun|0|0
+2527370|Darkless|0|0
+2529130|URBO: Dream One|0|0
+2530500|Dropkick Navvy: First Step|0|0
+2532230|SCP: Nemesi|0|0
+2533060|Heart and Core|0|0
+2539180|Mayhem Survivors: Animals|0|0
+2540100|Crime Scene Cleaner: Prologue|0|0
+2542430|5050|0|0
+2544880|Dreamland|0|0
+2547790|ClosingShift|0|0
+2549670|Office Fight|0|0
+2550890|Mad King: Prologue|0|0
+2551020|One-armed robber|0|0
+2553710|Birds Aren't Real: The Game|0|0
+2553960|Conquistadorio: Prologue|0|0
+2554990|Beacon Patrol: First Horizons|0|0
+2556180|Minute|0|0
+2558390|Go Go Zombies|0|0
+2560050|The Local|0|0
+2564640|CD2: Trap Master - Prologue|0|0
+2564660|Frontline 1942: Batalhas da Guerra Mundial 2|0|0
+2568880|The Hardest Game Ever|0|0
+2569480|Monster Crawl: Warrior|0|0
+2571350|SoulofWar:Legions|0|0
+2575070|Future Breach: Youngblood|0|0
+2578110|We're Tethered Together|0|0
+2580210|SCP: Rulebreaker|0|0
+2581020|Virtuar Z|0|0
+2581970|Shell Runner - Prelude|0|0
+2585400|Potato Arena: Multiplayer Prologue|0|0
+2586870|Soul's Spectrum: Awakening|0|0
+2587450|Tank Team|0|0
+2588990|Survive It: Frozen|0|0
+2590250|The Windows Are Gone|0|0
+2594640|Taora : Beginning|0|0
+2594940|Signal|0|0
+2595850|Stronghold Siege|0|0
+2598410|Project Adder|0|0
+2598980|Oh Baby Kart|0|0
+2601600|Rock Star Life Simulator: Prologue|0|0
+2603030|What's on Agenda|0|0
+2603430|Shell's Kitchen|0|0
+2606170|Vivaland: Dream House|0|0
+2610090|A Park Full of Cats|0|0
+2610830|Retro Combat|0|0
+2612680|Cureocity|0|0
+2613610|Drift.Wav|0|0
+2618370|Mossy Pixels|0|0
+2622000|Astral Party |0|0
+2623150|Vivaldia 2|0|0
+2626410|Sins OV Cigar|0|0
+2626910|Aviators|0|0
+2628100|BladeBound|0|0
+2631580|Cat Search In The Wild West|0|0
+2632080|Dumball Rush|0|0
+2632220|Champion Shift: Prologue|0|0
+2632630|Groove that Goob|0|0
+2633210|Catch Them Sweetie|0|0
+2635510|Raiders of Valhalla - Prologue|0|0
+2635670|Cycle Idle RPG|0|0
+2638890|Onimusha: Way of the Sword|239|0
+2639420|Fairytale Fables|0|0
+2639460|Snow Plowing Simulator - First Snow|0|0
+2639810|Rumble Club|0|0
+2641740|Arsenal Online|0|0
+2642100|Nonogram Nights|0|0
+2643210|Niwa - Japanese Garden Simulator|0|0
+2643810|Betrayal Beach|0|0
+2645100|Kerker|0|0
+2647100|Steamrush|0|0
+2647860|Star Stuff: Prologue|0|0
+2651330|Intravenous 2: Mercenarism|0|0
+2652750|Grappling Gunners: Arena FPS|0|0
+2654860|Mizi NO!|0|0
+2655320|Spellcats: Auto Card Tactics - Prologue|0|0
+2655840|Blood Orange|0|0
+2656050|Knytt Classic|0|0
+2656310|One Week With The Mafia|0|0
+2656410|SCP: Bloodwater|0|0
+2658710|Tinkerlands: A Shipwrecked Adventure|0|0
+2660970|Hypersomnia|0|0
+2661100|The Braves: Beginning|0|0
+2661160|Goober Dash|0|0
+2663450|RC Revolution: High Voltage|0|0
+2666410|Astra Ignota|0|0
+2667690|TEST TEST TEST|0|0
+2667970|100 Asian Cats|0|0
+2668080|SNOWBREAK|0|0
+2668350|Cats on Duty: Prologue|0|0
+2668450|Psych//Shift|0|0
+2668510|Red Dead Redemption|1132|0
+2669490|Chambers: The Outlaw|0|0
+2669550|Medieval Machines Builder - First Siege|0|0
+2670250|Dreamslayer|0|0
+2672130|Bloodshots|0|0
+2672290|Free Chess|0|0
+2673060|Moi Moi Heroes|0|0
+2674240|Jinni : Haunted House|0|0
+2675290|LASERS|0|0
+2676770|Basketball Grand Slam 2024|0|0
+2679060|失落的猫猫 Lost Cat|0|0
+2679520|Echolight|0|0
+2679690|Age of Advent|0|0
+2682570|Octameta|0|0
+2684500|Alpha League|0|0
+2684790|William and Sly: Classic Collection|0|0
+2684830|Alchemy Frogs|0|0
+2684930|TRUFFLE|0|0
+2686740|Divergence|0|0
+2690970|垃圾桶军团|0|0
+2692570|Sonder|0|0
+2694490|Path of Exile 2|153|0
+2694900|PEPITA VIAJERA ARTIC|0|0
+2695350|Mullet Mad Jack Demo|0|0
+2695780|With Shining Eyes|0|0
+2696080|Dream of the Star Haven|0|0
+2696480|Nothing|1|0
+2698550|ゆきうさ|0|0
+2700510|Seasons of Rocco|0|0
+2700780|my eyes deceive|0|0
+2701120|Cursed Enigma - Priest and Prayers|0|0
+2705370|Mist|0|0
+2706370|AC Sailing|0|0
+2707360|Atan|0|0
+2707390|Sicaria|0|0
+2707400|Shred Off|0|0
+2707410|Iron Line|0|0
+2707900|NIGHT-RUNNERS PROLOGUE|0|0
+2707930|Palia|0|0
+2709390|dWARf|0|0
+2709800|Bam Boom Blade|0|0
+2712910|Spark & Kling|0|0
+2713460|Mimic Search|0|0
+2714210|Pocket Pusher|0|0
+2717450|Museum Mystery|0|0
+2719150|Holo X Break|0|0
+2720430|化鬼Deteriorate上|0|0
+2721710|Gloomsday|0|0
+2722310|CLeM: The First Attribute|0|0
+2723880|Notes To Myself|0|0
+2725560|Idle Fishing|0|0
+2726240|Charrua Soccer - Mirror Edition|0|0
+2726560|Kona & SnowRabbit: Pilot|0|0
+2729940|Sluggerpunk|0|0
+2730020|Satori|0|0
+2730270|Sputnika Game|0|0
+2731880|Ghost Only|0|0
+2731900|Rise of the Eternal|0|0
+2734750|Gun vs. Zombies|0|0
+2735020|Cyber Rush|0|0
+2735630|Frostrain|0|0
+2735690|Gravitia|0|0
+2735950|Necro Rumble|0|0
+2738430|Legendary Hoplite: Arachne’s Trial|0|0
+2738480|NOVA CORE CHAOS|0|0
+2739990|Mahjong Soul|0|0
+2740290|SHADOW|0|0
+2743030|LISA: The First|0|0
+2743080|100 Capitalist Cats|0|0
+2743220|My Friend The Spider|0|0
+2743860|TSEROF|0|0
+2744260|The Zhukov Line|0|0
+2744900|Detective Kiwi|0|0
+2747110|iLLANG|0|0
+2747470|Swing Into Zero-G|0|0
+2747740|Nova Hearts: The Spark|0|0
+2748470|DarkStorm|0|0
+2749130|Picker Bot 42|0|0
+2750680|TAVUTI|0|0
+2751810|Meteora's Mystic Merge|0|0
+2752680|Adapta Solva|0|0
+2755870|Kudamono Party|0|0
+2756780|OBSCURIA|0|0
+2758540|我的小鲨鱼|0|0
+2759910|Devilish League|0|0
+2761970|Ingression: The Portal Trial|0|0
+2762230|Aurora Hills: Capítulo 1|0|0
+2767030|Marvel Rivals|0|0
+2771670|Psychopomp|0|0
+2772430|Looking For Cats In a Badly Drawn City|0|0
+2772560|Supermarket Simulator: Prologue|0|0
+2776550|SirKwitz|0|0
+2776810|100 Ninja Cats|0|0
+2777190|Hoversteppers: Zone 1|0|0
+2777660|RC Overdrive|0|0
+2778420|Pet Shop Simulator: Prologue|0|0
+2778550|BioGun: Clinical Trial|0|0
+2779220|Guano|0|0
+2779390|Bolt'N'Punch|0|0
+2782530|Shrimp.io|0|0
+2784540|100 KILLS CHALLENGE DEMO|0|0
+2784980|Tangles|0|0
+2786250|IVRI|0|0
+2786450|Kittenrock Cats - A Hidden Object Game|0|0
+2786990|Rama's Quest|0|0
+2787590|Genopanic: Prologue|0|0
+2788870|Mini Settlers: Prologue|0|0
+2789280|My Shadow|0|0
+2789420|Escape from Ever After: Onboarding|0|0
+2790830|Neon Nova|0|0
+2791440|Brighter Shores|0|0
+2792530|Moss Piglets|0|0
+2793110|FELLCHASER|0|0
+2793820|All City King|0|0
+2794330|Atuel|0|0
+2795000|The WereCleaner|0|0
+2796340|Illusion Carnival|0|0
+2796550|Rental|0|0
+2796590|Introspection|0|0
+2801700|HYPER DEMON PVP|0|0
+2803000|100 Dino Cats|0|0
+2803010|100 Robo Cats|0|0
+2805130|Folgore|0|0
+2805210|Space Hat|0|0
+2805910|The Circle Tales: Elvenwoods|0|0
+2806410|Project Entropy|0|0
+2807290|Cardboard Chronicles|0|0
+2807960|Battlefield™ 6|264|0
+2810210|Codename CURE II|0|0
+2811970|Meta-Ghost: Prologue|0|0
+2816580|Deck of Delirium|0|0
+2818260|Vigor|0|0
+2823860|Joe 'n Jo|0|0
+2824230|last seen online|0|0
+2825400|Pogo Pogo|0|0
+2830720|FreeInfantry|0|0
+2831340|Rabbit Hole|0|0
+2831910|CastingPlz|0|0
+2836290|On Track|0|0
+2836810|Escape From Zombietown|0|0
+2841350|Age of Water: The First Voyage|0|0
+2842420|1000 Cuts: Jomaku|0|0
+2842520|Meteor Havok|0|0
+2844620|Bed and BEAKfast|0|0
+2845250|100 Istanbul Cats|0|0
+2847110|驱煞|0|0
+2850000|Reborn: An Idle Roguelike RPG|0|0
+2850630|Soulbind: Prologue|0|0
+2851690|Riptide|0|0
+2856090|Cyan's Snow House|0|0
+2858270|The Storyteller|0|0
+2858400|Bugnauts|0|0
+2858410|Brinkmanship|0|0
+2858430|Lake Minnewaska|0|0
+2865360|Inline: Out of Time|0|0
+2866910|Fallopian Frenzy! Come Again?|0|0
+2870280|Pogo Rogue|0|0
+2870950|Splash Carnival|0|0
+2874290|Wind Rider|0|0
+2876790|Kiwie vs Desert|0|0
+2877880|unbreaded|0|0
+2878140|Gooba Ball|0|0
+2879490|SMYS : Classic|0|0
+2880180|Crimson Hell|0|0
+2880460|Terroro|0|0
+2881230|100 Funny Cats|0|0
+2881650|Content Warning|0|0
+2892470|Evil Sinister|0|0
+2893310|Speakeasy|0|0
+2895990|Cat Purrtrol: Find All 100!|0|0
+2899450|HOLOSAGA: Invasion of the HoloX|0|0
+2900530|Nine Realms: Dawn Touch|0|0
+2901040|Ivorfall|0|0
+2902720|SPAM|0|0
+2904320|Astrometica: Prologue|0|0
+2905170|Magic Archery|0|0
+2907010|FIND KITTENS: The last of cats|0|0
+2907680|Cosmotots|0|0
+2911850|Playing Kafka|0|0
+2916460|Sobrevivência Veloz|0|0
+2919650|Cookard|0|0
+2920660|Zombie Battle|0|0
+2922800|Quackdzilla: Pool Cleaning Simulator|0|0
+2923300|Banana|0|0
+2925410|Chocolate Factory: Prologue|0|0
+2927020|Phantom Spark Demo|0|0
+2930160|Nightmare Kart|0|0
+2933590|Boneless VR|0|0
+2936380|Miya|0|0
+2937280|ChronoClone|0|0
+2937710|Clothing Store Simulator: Prologue|0|0
+2939780|No contact|0|0
+2941480|9SHOT|0|0
+2942810|Kilonova|0|0
+2946720|Keeper's Curse|0|0
+2950340|LEGO® Harry Potter™ Collection|41|0
+2950790|IRON NEST: Simulador de Artilharia Pesada|148|0
+2951500|Medved Hellraiser 3: Green Elephant|0|0
+2953440|Black Screen|0|0
+2954780|Nightmare House: The Original Mod|0|0
+2955060|Off Air|0|0
+2960320|Stairway|0|0
+2960560|Union of Gnomes: Prologue|0|0
+2961230|Goblin Kart Rescue|0|0
+2962650|UT Game Design Presents: Banana Cowboy|0|0
+2968510|Phantom Watcher|0|0
+2973240|Above|0|0
+2973390|Krypta FM|0|0
+2975350|Blood Lust|0|0
+2979650|Ruiga Pirates: Cursed Seas|0|0
+2981800|Furriend|0|0
+2983040|Abyssal|0|0
+2985610|The Big Catch: Tacklebox|0|0
+2987640|Emerald Dreams: Sanity -  Platformer Quest|0|0
+2994920|Turbo Live|0|0
+3001970|Coloring Game 5|0|0
+3022810|HackHub: Free Trial|0|0
+3030210|Slash/Jump|0|0
+3050180|CHROMA|0|0
+3056640|I Have More Hours Than You|0|0
+3056660|As expected of the Demon Lord|0|0
+3062550|Hail Britannia|0|0
+3065120|Max's Adventure|0|0
+3081050|Fight School Simulator: Prologue|0|0
+3089150|Retail Company Simulator: Prologue|0|0
+3092660|Reverse: 1999|0|0
+3099020|Fast Food Simulator: Prologue|0|0
+3103830|Quacker Bros|0|0
+3107230|Pantheon: Rise of the Fallen|573|0
+3107440|Gorble|0|0
+3110130|Recycling Center Simulator: Prologue|0|0
+3116470|IDUN Prologue - Frontline Survival|0|0
+3118160|Floodcore|0|0
+3126140|Fear of the Light|0|0
+3153620|Descenso|0|0
+3156000|GHUNTER|0|0
+3160400|Plants Huddled Together|0|0
+3170580|Backyard Basketball '01|0|0
+3170590|Backyard Hockey '02|0|0
+3170670|Everything Ends In 0|0|0
+3173220|Wizards in Shorts|0|0
+3177070|Frontline Inferno|0|0
+3177920|PUMPKIN PANIC|0|0
+3184160|Spellchanted|0|0
+3191050|AVIÃOZINHO DO TRÁFICO 3:ABRI UM PORTAL PRO INFERNO NA FAVELA TENTANDO REVIVER MIT AIA E PRECISO FECHAR|10|0
+3199040|Veil Transfer|0|0
+3215190|Backrooms: Found Footage|0|0
+3222970|Find 100 Ducks and Blast Them!|0|0
+3224310|you're just imagining it|0|0
+3224960|Pizzapocalypse (Student Version)|0|0
+3225260|Diluvian Ultra: Awakening|0|0
+3239970|ISS Simulator|0|0
+3241660|R.E.P.O.|8|0
+3242420|AWAKEN - Astral Blade: First Contact|0|0
+3249100|Virtual Interactive Fireplace|0|0
+3249180|Traveller's Hymn|0|0
+3251130|Dark Goddess of Destruction: Deusa da Destruição|0|0
+3256730|Inkesis|0|0
+3257020|Alarion|0|0
+3258480|Wild Ones Battle Stadium|0|0
+3261010|中华一商：传承|0|0
+3261500|Pamina VS Slimes|0|0
+3278760|The Happyhills Homicide|0|0
+3292480|Ignited Entry|0|0
+3294060|遥远的村庄 AN OUTLAND VILLAGE|0|0
+3294890|Five Nights at Roner's: Remastered|0|0
+3295750|DEMON COMPASS|0|0
+3302650|Conscience|0|0
+3306800|FREEFLOW|0|0
+3308210|Store Wars: Prologue - Multiplayer Shop Simulator|0|0
+3323470|Wanderness|0|0
+3330150|Bean Battle Brawl|0|0
+3330220|Magic Puzzle King 2|0|0
+3342600|Letters from the War|0|0
+3355150|Stellarion|0|0
+3374390|FleshBound|0|0
+3403860|Samurai Brothers|0|0
+3418430|10 Seconds|0|0
+3419430|Bongo Cat|0|0
+3422860|Mage at Stake|0|0
+3454520|Death Drive|0|0
+3462040|ACS|0|0
+3471350|Alpha League HD|0|0
+3476950|Campoca|0|0
+3504320|Como contar até 100|0|0
+3545060|Team Fortress 2 Classified|0|0
+3548580|Chill with You Lo-Fi Story|345|0
+3564740|Where Winds Meet|0|0
+3587490|Terrors to Unveil - Day Off|0|0
+3601890|Cosmic Drift|0|0
+3619040|Half-Life Legacy|0|0
+3626910|Sync Or Sink|0|0
+3715020|Ye Guild Clerk!|0|0
+3716600|Mage Arena|4|0
+3738250|G-Rebels Demo|0|0
+3744710|Press A|0|0
+3765430|Laugh Track|0|0
+3825360|Zombie Panic!|0|0
+3851650|The Darkest Dusk|0|0
+3857590|Wish Upon a Cat|0|0
+3858730|Corsair Cove Demo|0|0
+3885860|Gnomeball|0|0
+3886730|Off Course|0|0
+3908010|Polylumina|0|0
+3909220|Yuki「清醒梦」|0|0
+3925720|FISH³: FIRST CATCH|0|0
+3929490|Head Tracker|9|0
+3982140|Hijong Park's Defender Patrol (Free)|0|0
+3993960|Blemo|0|0
+4022300|DateBoy|0|0
+4025700|Heartopia|0|0
+4031820|Havok Balloons Tech Showcase|0|0
+4041890|The Last Elixir|0|0
+4055570|Loser Named Hana|0|0
+4070790|Palmier Island|0|0
+4070990|Archival Anemoia|0|0
+4096600|Project KILLDANCE|0|0
+4106530|PUNCH FOREVER|0|0
+4126040|Aniimo|0|0
+4137210|Run Coffee Run|0|0
+4160320|Pigment|0|0
+4163980|Pet-That-Vtuber!|0|0
+4181870|Medieval Merchant|0|0
+4186120|How To Bike|0|0
+4196100|Onimusha: Way of the Sword Benchmark|0|0
+4196200|EXODUS2|0|0
+4238610|HOURFALL|0|0
+4252340|CPM 2|0|0
+4254360|Cellchemist|0|0
+4259170|EXOTERRA: A Space Journey|0|0
+4270390|D1AL-ogue|0|0
+4285470|Vellum: Raid Night Study Hall|0|0
+4300500|IRON NEST: Simulador de Artilharia Pesada Demo|0|0
+4314280|Faehnor Online|0|0
+4339870|Goreagulation|0|0
+4384970|The Raid of Brunswick|0|0
+4429430|Origins Trading Card Game|0|0
+4435950|Formation Builder Idle|0|0
+4436710|Witness To Mass Incarceration|0|0
+4438380|Sopwith|0|0
+4597820|DRENCHED|0|0
+4630570|RUNNING TRAIN|40|0
+4673920|NEVEREND|0|0
+4709660|Pantheon: Rise of the Fallen (Public Test Realm)|0|0
+4840240|The Listener|0|0
+4856160|Conquest of Empires 3|0|0
+4910040|GeForce 8800 GTX - 20 Years of a Legend|0|0
+5283330|Wattverse|0|0
+5308110|Farm Story Life|0|0
+5377010|OUTVOTE - Steam Version|0|0
+5377530|GRAVE SHIFT|0|0
+774291|Last Man Sitting|138|1
+990080|Hogwarts Legacy|115|1

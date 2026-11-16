@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Hoje eu jogo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- HOME: categories -->
+  <section id="home" class="screen">
+    <header class="top">
+      <div>
+        <h1>Hoje eu jogo…</h1>
+        <p class="sub" id="libCount"></p>
+      </div>
+      <button class="icon-btn" id="addBtn" aria-label="Adicionar jogo de PS2">＋ PS2</button>
+    </header>
+    <button class="surprise" id="surpriseAll">🎲 Me surpreenda</button>
+    <div class="cat-grid" id="catGrid"></div>
+  </section>
+
+  <!-- SHELF: one category -->
+  <section id="shelf" class="screen hidden">
+    <div class="stage" id="stage">
+      <img class="stage-img" id="stageImg" alt="">
+      <video class="stage-video" id="stageVideo" muted loop playsinline preload="none"></video>
+      <iframe class="stage-video" id="stageYt" allow="autoplay; encrypted-media" hidden></iframe>
+      <div class="stage-fade"></div>
+      <button class="back" id="backBtn" aria-label="Voltar">←</button>
+      <button class="sound" id="soundBtn" aria-label="Som" hidden>🔇</button>
+      <div class="info">
+        <div class="stores" id="infoStores"></div>
+        <h2 id="infoName"></h2>
+        <p class="meta" id="infoMeta"></p>
+        <p class="desc" id="infoDesc"></p>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <h3 id="shelfTitle"></h3>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="counter" id="counter"></div>
+    <div class="carousel" id="carousel"><div class="track" id="track"></div></div>
+
+    <div class="actions">
+      <button id="pickHere">🎲 Sortear daqui</button>
+      <button id="hideBtn" class="ghost">Ocultar jogo</button>
+    </div>
+  </section>
+
+  <!-- PS2 dialog -->
+  <dialog id="ps2Dialog">
+    <form method="dialog" id="ps2Form">
+      <h2>Adicionar jogo de PS2</h2>
+      <label>Nome do jogo<input id="ps2Name" required placeholder="Ex.: Shadow of the Colossus"></label>
+      <label>Categoria<select id="ps2Cat"></select></label>
+      <div class="cover-row">
+        <img id="ps2Preview" alt="">
+        <div>
+          <button type="button" id="ps2Find">Buscar capa</button>
+          <p class="hint" id="ps2Hint">Procuro a capa na Wikipédia pelo nome.</p>
+        </div>
+      </div>
+      <label>Link da capa (opcional)<input id="ps2Cover" placeholder="https://…"></label>
+      <label>Trailer no YouTube (opcional)<input id="ps2Yt" placeholder="https://youtu.be/…"></label>
+      <menu>
+        <button value="cancel" class="ghost" formnovalidate>Cancelar</button>
+        <button value="ok" id="ps2Save">Salvar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="vendor/hls.min.js"></script>
+  <script src="categories.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

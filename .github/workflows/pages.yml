@@ -1,0 +1,34 @@
+# Publishes GamePicker/web to GitHub Pages on every push to main.
+# The Android app loads the interface from there, so changes reach the phone
+# the next time the app opens (with the bundled copy as an offline fallback).
+name: Publish web app
+
+on:
+  push:
+    branches: [main]
+    paths: ['GamePicker/web/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: GamePicker/web
+      - id: deployment
+        uses: actions/deploy-pages@v4

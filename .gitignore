@@ -1,0 +1,6 @@
+# build outputs
+GamePicker/build/
+*.apk
+*.apk.idsig
+# signing key stays only on this PC (whoever has it can sign app updates)
+*.keystore
