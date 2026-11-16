@@ -29,6 +29,7 @@ async function loadLibrary() {
     g.cats = cats;
     for (const k of cats) state.byCat.get(k).push(g);
   }
+  state.byCat.set('now', nowGames());          // lista "Estou jogando agora" (now.js)
   $('#libCount').textContent =
     `${state.all.length} jogos · ${state.all.filter((g) => !g.minutes).length} nunca jogados` +
     (hidden.size ? ` · ${hidden.size} ocultos` : '');
@@ -64,21 +65,29 @@ function renderHome() {
 }
 
 /* ---------------- roteamento (hash) ---------------- */
+/* Telas: ''=início · #cats=categorias · #now-pick=escolher/confirmar · #c=<key>=prateleira */
 function go(cat, focusId) { location.hash = `c=${cat}` + (focusId ? `&g=${encodeURIComponent(focusId)}` : ''); }
+function showScreen(id) {
+  for (const s of document.querySelectorAll('.screen')) s.classList.toggle('hidden', s.id !== id);
+}
 function route() {
-  const p = new URLSearchParams(location.hash.slice(1));
-  const cat = p.get('c');
-  if (cat && state.byCat.has(cat)) openShelf(cat, p.get('g'));
-  else { closeShelf(); }
+  const h = location.hash.slice(1);
+  const cat = new URLSearchParams(h).get('c');
+  if (cat && state.byCat.has(cat)) return openShelf(cat, new URLSearchParams(h).get('g'));
+  closeShelf();
+  if (h === 'cats') showScreen('home');
+  else if (h === 'now-pick') openPicker();
+  else { renderStart(); showScreen('start'); }
 }
 window.addEventListener('hashchange', route);
 
 /* ---------------- prateleira ---------------- */
+const NOW_CAT = { key: 'now', label: 'Estou jogando agora', emoji: '🎮' };
+
 function openShelf(cat, focusId) {
-  const c = CATEGORIES.find((x) => x.key === cat);
+  const c = cat === 'now' ? NOW_CAT : CATEGORIES.find((x) => x.key === cat);
   if (state.cat !== cat) { state.cat = cat; state.filter = 'all'; }
-  $('#home').classList.add('hidden');
-  $('#shelf').classList.remove('hidden');
+  showScreen('shelf');
   $('#shelfTitle').textContent = `${c.emoji} ${c.label}`;
   renderChips();
   buildList(focusId);
@@ -87,8 +96,6 @@ function openShelf(cat, focusId) {
 function closeShelf() {
   stopTrailer();
   state.cat = null;
-  $('#shelf').classList.add('hidden');
-  $('#home').classList.remove('hidden');
 }
 
 function renderChips() {
@@ -236,7 +243,7 @@ function scrollToIndex(i) {
 }
 
 /* ---------------- painel + trailer ---------------- */
-const STORE_LABEL = { steam: 'Steam', gog: 'GOG', epic: 'Epic', ps2: 'PS2' };
+const STORE_LABEL = { steam: 'Steam', gog: 'GOG', epic: 'Epic', ps2: 'PS2', manual: 'Manual' };
 
 function showInfo(g) {
   stopTrailer();
@@ -247,7 +254,7 @@ function showInfo(g) {
   $('#infoMeta').textContent = [played, ...(g.tags || []).slice(0, 3)].join(' · ');
   $('#infoDesc').innerHTML = esc(g.desc || '') +
     (!g.trailer && !g.youtube ? ` <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(g.name + ' gameplay')}" style="color:var(--accent2)">▶ ver gameplay no YouTube</a>` : '');
-  $('#hideBtn').textContent = g.stores.includes('ps2') && g.id.startsWith('ps2:') ? 'Remover jogo' : 'Ocultar jogo';
+  $('#hideBtn').textContent = state.cat === 'now' ? 'Tirar da lista' : (g.id.startsWith('ps2:') ? 'Remover jogo' : 'Ocultar jogo');
 
   const img = $('#stageImg');
   img.src = g.hero || g.cover || '';
@@ -341,7 +348,10 @@ $('#surpriseAll').onclick = () => {
 $('#hideBtn').onclick = async () => {
   const g = state.list[state.idx];
   if (!g) return;
-  if (g.id.startsWith('ps2:')) {
+  if (state.cat === 'now') {                     // na lista "Estou jogando", só tira da lista
+    removeFromNow(g.id);
+    toast('Tirado da lista "Estou jogando"');
+  } else if (g.id.startsWith('ps2:')) {
     store.set('ps2', store.get('ps2', []).filter((x) => x.id !== g.id));
     toast('Jogo removido');
   } else {
@@ -354,6 +364,7 @@ $('#hideBtn').onclick = async () => {
 async function refresh() {
   await loadLibrary();
   renderHome();
+  renderStart();
   if (state.cat) { renderChips(); buildList(); }
 }
 
@@ -422,4 +433,4 @@ function toast(msg) {
   setTimeout(() => t.remove(), 2200);
 }
 
-loadLibrary().then(() => { renderHome(); route(); });
+// a inicialização fica no fim de now.js (carregado depois deste arquivo)

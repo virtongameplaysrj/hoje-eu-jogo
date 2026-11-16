@@ -7,11 +7,55 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- HOME: categories -->
-  <section id="home" class="screen">
+  <!-- START: two big groups -->
+  <section id="start" class="screen">
     <header class="top">
       <div>
         <h1>Hoje eu jogo…</h1>
+        <p class="sub" id="startCount"></p>
+      </div>
+    </header>
+    <div class="groups">
+      <button class="group" id="groupNow">
+        <div class="collage" id="nowCollage"></div>
+        <span class="emoji">🎮</span>
+        <div class="label"><b>Estou jogando agora</b><span id="nowSub"></span></div>
+      </button>
+      <button class="group" id="groupCats">
+        <div class="collage" id="catsCollage"></div>
+        <span class="emoji">📚</span>
+        <div class="label"><b>Todas as categorias</b><span id="catsSub"></span></div>
+      </button>
+    </div>
+  </section>
+
+  <!-- NOW PICKER: choose / confirm up to 10 games -->
+  <section id="picker" class="screen hidden">
+    <header class="top">
+      <button class="round" id="pickerBack" aria-label="Voltar">←</button>
+      <div class="grow">
+        <h1 id="pickerTitle"></h1>
+        <p class="sub" id="pickerSub"></p>
+      </div>
+    </header>
+    <div class="picked" id="picked"></div>
+    <div class="pick-box">
+      <input id="pickSearch" type="search" placeholder="🔍 Buscar na sua biblioteca…" autocomplete="off">
+      <div class="results" id="pickResults"></div>
+    </div>
+    <div class="pick-box manual">
+      <input id="manualName" placeholder="Não está na biblioteca? Digite o nome" autocomplete="off">
+      <button id="manualAdd" class="ghost">Adicionar</button>
+    </div>
+    <div class="picker-actions"><button id="pickConfirm"></button></div>
+  </section>
+
+  <!-- HOME: categories -->
+  <section id="home" class="screen hidden">
+    <header class="top">
+      <button class="round" id="homeBack" aria-label="Voltar">←</button>
+      <div class="grow">
+        <h1>Categorias</h1>
         <p class="sub" id="libCount"></p>
       </div>
       <button class="icon-btn" id="addBtn" aria-label="Adicionar jogo de PS2">＋ PS2</button>
@@ -76,5 +120,6 @@
   <script src="vendor/hls.min.js"></script>
   <script src="categories.js"></script>
   <script src="app.js"></script>
+  <script src="now.js"></script>
 </body>
 </html>
