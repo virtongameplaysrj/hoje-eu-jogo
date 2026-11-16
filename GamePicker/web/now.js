@@ -1,6 +1,6 @@
-/* "Estou jogando agora": até 10 jogos, confirmados uma vez por dia.
+/* "Estou jogando agora": até NOW_MAX jogos, confirmados uma vez por dia.
    Salvo no aparelho como { ids: [...], manual: [jogos digitados], confirmed: 'AAAA-M-D' } */
-const NOW_MAX = 10;
+const NOW_MAX = 15;
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
 const loadNow = () => store.get('now', null);
 const confirmedToday = (n) => !!(n && n.ids.length && n.confirmed === today());
