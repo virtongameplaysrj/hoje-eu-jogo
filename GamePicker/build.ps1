@@ -1,9 +1,11 @@
 # Builds GamePicker.apk without Gradle: javac -> d8 -> aapt2 -> zipalign -> apksigner
 $ErrorActionPreference = 'Stop'
-$T    = "C:\Users\lucas\AndroidBuildTools"
-$BT   = "$T\sdk\build-tools\34.0.0"
-$JAR  = "$T\sdk\platforms\android-34\android.jar"
-$env:JAVA_HOME = "$T\jdk"; $env:Path = "$T\jdk\bin;$env:Path"
+# Ferramentas compartilhadas do PC (ver ~/.claude/CLAUDE.md): JDK 17 e Android SDK em E:\Dev
+$JDK  = "C:\Program Files\Eclipse Adoptium\jdk-17.0.21.9-hotspot"
+$SDK  = if ($env:ANDROID_HOME) { $env:ANDROID_HOME } else { "E:\Dev\Android\Sdk" }
+$BT   = "$SDK\build-tools\34.0.0"
+$JAR  = "$SDK\platforms\android-34\android.jar"
+$env:JAVA_HOME = $JDK; $env:Path = "$JDK\bin;$env:Path"
 $root = $PSScriptRoot
 $src  = "$root\android"
 $out  = "$root\build"
@@ -39,12 +41,12 @@ foreach ($f in Get-ChildItem -Recurse -File $web) {
 }
 $zip.Dispose()
 
-# 5. align + sign (debug-style key kept next to the project so updates install over the old app)
+# 5. align + sign. A chave fica FORA do projeto, em E:\Dev\keystores\gamepicker.
+#    Tem que ser sempre a mesma: com outra chave o APK não instala por cima do app no celular.
 & "$BT\zipalign.exe" -f -p 4 "$out\base.apk" "$out\aligned.apk"
-$ks = "$root\gamepicker.keystore"
+$ks = "E:\Dev\keystores\gamepicker\gamepicker.keystore"
 if (-not (Test-Path $ks)) {
-  & keytool -genkeypair -keystore $ks -storepass gamepicker -keypass gamepicker -alias gp `
-    -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=GamePicker" | Out-Null
+  throw "Chave de assinatura não encontrada em $ks. Não gere outra: restaure o backup dessa chave."
 }
 & "$BT\apksigner.bat" sign --ks $ks --ks-pass pass:gamepicker --key-pass pass:gamepicker `
   --out "$root\GamePicker.apk" "$out\aligned.apk"
