@@ -125,11 +125,8 @@ const Sound = (() => {
     src.connect(f); f.connect(g); g.connect(master); src.start(t);
   }
 
-  let introBus = null;
-  /** Toca a trilha da abertura; warpAt = segundo em que acontece o salto. */
-  function intro(warpAt) {
-    if (!audio()) return;
-    introBus = master;
+  /** Agenda a trilha da abertura no contexto atual; warpAt = segundo em que acontece o salto. */
+  function scheduleIntro(warpAt) {
     const t = ctx.currentTime + 0.05;
     // drone grave que cresce até o salto
     for (const [m, det] of [[33, 0], [40, 6], [45, -5]]) {
@@ -146,17 +143,47 @@ const Sound = (() => {
     }
   }
 
-  function stopAll() {
-    circusStop(0.2);
-    if (ctx && introBus) {
-      // corta a abertura suavemente recriando o master
-      const t = ctx.currentTime, old = master;
-      old.gain.setValueAtTime(old.gain.value, t); old.gain.linearRampToValueAtTime(0, t + 0.3);
-      setTimeout(() => old.disconnect(), 400);
-      master = ctx.createGain(); master.gain.value = 0.55; master.connect(ctx.destination);
-      introBus = null;
-    }
+  /**
+   * O Android bloqueia o Web Audio "ao vivo" até o primeiro toque, mas deixa o app tocar um
+   * <audio> comum sozinho. Então renderizamos a trilha inteira offline (não precisa de toque),
+   * viramos um WAV e devolvemos um elemento <audio> pronto para tocar.
+   */
+  async function introTrack(warpAt, totalSec) {
+    const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    if (!OAC) return null;
+    const sr = 22050;
+    const off = new OAC(1, Math.ceil(sr * totalSec), sr);
+    const keep = [ctx, master];
+    ctx = off;                                     // note()/brass()/whoosh() desenham neste contexto
+    master = off.createGain(); master.gain.value = 0.55; master.connect(off.destination);
+    try { scheduleIntro(warpAt); } finally { [ctx, master] = keep; }
+    const buf = await off.startRendering();
+    const a = new Audio(URL.createObjectURL(new Blob([toWav(buf)], { type: 'audio/wav' })));
+    a.preload = 'auto';
+    return a;
   }
 
-  return { unlock: audio, circusStart, circusStop, tick, tada, intro, stopAll };
+  /** AudioBuffer (mono) → arquivo WAV PCM 16 bits. */
+  function toWav(buf) {
+    const d = buf.getChannelData(0), n = d.length;
+    const v = new DataView(new ArrayBuffer(44 + n * 2));
+    const str = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+    str(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); str(8, 'WAVE');
+    str(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, buf.sampleRate, true); v.setUint32(28, buf.sampleRate * 2, true);
+    v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+    str(36, 'data'); v.setUint32(40, n * 2, true);
+    for (let i = 0; i < n; i++) {
+      const s = Math.max(-1, Math.min(1, d[i]));
+      v.setInt16(44 + i * 2, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+    }
+    return v.buffer;
+  }
+
+  function stopAll() { circusStop(0.2); }
+
+  // qualquer toque "destrava" o áudio ao vivo (roleta, tiques) o quanto antes
+  document.addEventListener('pointerdown', () => audio(), { capture: true, once: true });
+
+  return { unlock: audio, circusStart, circusStop, tick, tada, introTrack, stopAll };
 })();

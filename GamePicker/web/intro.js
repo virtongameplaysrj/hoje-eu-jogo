@@ -61,18 +61,36 @@
     raf = requestAnimationFrame(frame);
   }
 
+  let track = null;   // <audio> com a trilha renderizada (ver Sound.introTrack)
+
   function finish() {
     if (done) return;
     done = true;
     cancelAnimationFrame(raf);
     Sound.stopAll();
+    if (track) {                       // abaixa o volume em ~0,3 s e para
+      const a = track;
+      const fade = setInterval(() => {
+        if (a.volume <= 0.1) { a.pause(); clearInterval(fade); } else a.volume -= 0.1;
+      }, 30);
+    }
     el.classList.add('leaving');
     setTimeout(() => el.remove(), 450);
   }
 
   el.addEventListener('pointerdown', finish);
-  Sound.intro(WARP_AT);
   raf = requestAnimationFrame(frame);
+
+  // a trilha leva uma fração de segundo para ficar pronta; começa já no ponto certo da animação
+  Sound.introTrack(WARP_AT, INTRO_MS / 1000).then((a) => {
+    if (!a || done) return;
+    track = a;
+    a.addEventListener('loadedmetadata', () => {
+      a.currentTime = Math.max(0, (performance.now() - t0) / 1000);
+      a.play().catch(() => {});
+    }, { once: true });
+    a.load();
+  }).catch(() => {});
 
   // o subtítulo mostra o tamanho da biblioteca quando ela terminar de carregar
   const sub = el.querySelector('.intro-sub');

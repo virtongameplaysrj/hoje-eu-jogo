@@ -59,10 +59,19 @@ public class MainActivity extends Activity {
                 if (!HOST.equals(u.getHost())) return null;      // network as usual
                 String path = u.getPath();
                 if (path == null || path.equals("/")) path = "/index.html";
-                // 1) versão mais nova publicada no GitHub Pages
-                InputStream remote = fetchRemote(path);
+                // A fonte (GitHub ou cópia do APK) é decidida UMA vez, no index.html, e vale para
+                // todos os arquivos desta abertura: misturar versões quebra o app.
+                InputStream remote = null;
+                if (path.equals("/index.html")) {
+                    remote = fetchRemote(path, false);
+                    remoteSession = remote != null;
+                } else if (remoteSession) {
+                    remote = fetchRemote(path, false);                    // 1ª tentativa
+                    if (remote == null) remote = fetchRemote(path, false); // 2ª tentativa
+                    if (remote == null) remote = fetchRemote(path, true);  // cópia do cache, mesmo vencida
+                }
                 if (remote != null) return new WebResourceResponse(mime(path), "utf-8", remote);
-                // 2) sem internet: cópia embutida no APK
+                // sem internet: cópia embutida no APK (último recurso numa sessão remota)
                 try {
                     InputStream in = getAssets().open("www" + path);
                     return new WebResourceResponse(mime(path), "utf-8", in);
@@ -86,22 +95,25 @@ public class MainActivity extends Activity {
         else web.loadUrl("https://" + HOST + "/index.html");
     }
 
-    /** Busca o arquivo no GitHub Pages (com cache HTTP em disco); null se falhar. */
-    private volatile boolean offline = false;   // após 1ª falha, usa só a cópia local
+    /** true quando o index.html desta abertura veio do GitHub Pages. */
+    private volatile boolean remoteSession = false;
 
-    private InputStream fetchRemote(String path) {
-        if (offline) return null;
+    /**
+     * Busca o arquivo no GitHub Pages, com cache HTTP em disco; null se falhar.
+     * cacheOnly: não vai à rede, aceita a cópia guardada mesmo se estiver vencida (até 30 dias).
+     */
+    private InputStream fetchRemote(String path, boolean cacheOnly) {
         HttpURLConnection c = null;
         try {
             c = (HttpURLConnection) new URL(REMOTE + path.substring(1)).openConnection();
-            c.setConnectTimeout(3500);
-            c.setReadTimeout(8000);
+            c.setConnectTimeout(8000);   // rede móvel "acordando" pode levar alguns segundos
+            c.setReadTimeout(20000);
             c.setUseCaches(true);
+            if (cacheOnly) c.addRequestProperty("Cache-Control", "only-if-cached, max-stale=2592000");
             if (c.getResponseCode() != 200) { c.disconnect(); return null; }
             return c.getInputStream();
         } catch (Exception e) {
             if (c != null) c.disconnect();
-            offline = true;
             return null;
         }
     }
