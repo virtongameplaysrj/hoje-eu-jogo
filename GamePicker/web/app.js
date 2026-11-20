@@ -37,14 +37,21 @@ async function loadLibrary() {
 
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
-/** Sorteio com peso: jogos nunca jogados têm 3x mais chance. */
+const RECENT_ROUNDS = 3;      // um jogo sorteado fica fora das próximas N rodadas
+
+/** Sorteio com peso: jogos nunca jogados têm 3x mais chance; os últimos sorteados ficam de fora. */
 function weightedPick(list) {
+  const recent = store.get('recent', []);
+  const fresh = list.filter((g) => !recent.includes(g.id));
+  if (fresh.length) list = fresh;               // se todos são recentes, sorteia entre eles mesmo
   // pesos do histórico do app (stats.js): rodízio no "Estou jogando", exploração no resto
   const mode = state.cat === 'now' ? 'now' : 'all';
   const w = list.map((g) => Stats.weight(g, mode));
   let r = Math.random() * w.reduce((a, b) => a + b, 0);
-  for (let i = 0; i < list.length; i++) { r -= w[i]; if (r <= 0) return list[i]; }
-  return list[list.length - 1];
+  let pick = list[list.length - 1];
+  for (let i = 0; i < list.length; i++) { r -= w[i]; if (r <= 0) { pick = list[i]; break; } }
+  store.set('recent', [pick.id, ...recent.filter((id) => id !== pick.id)].slice(0, RECENT_ROUNDS));
+  return pick;
 }
 
 /* ---------------- home ---------------- */
