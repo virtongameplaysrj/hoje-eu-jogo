@@ -48,11 +48,14 @@ $('#homeBack').onclick = () => history.back();
 $('#pickerBack').onclick = () => history.back();
 
 /* ---------------- escolher / confirmar ---------------- */
-const picker = { draft: null, original: '', confirming: false };
+// unsaved: rascunho que sobrevive a um "voltar" sem querer (até confirmar ou fechar o app)
+const picker = { draft: null, original: '', confirming: false, unsaved: null };
 
 function openPicker() {
   const n = loadNow() || { ids: [], manual: [] };
-  picker.draft = { ids: n.ids.slice(), manual: n.manual.slice() };
+  const src = picker.unsaved || n;
+  picker.draft = { ids: src.ids.slice(), manual: src.manual.slice() };
+  picker.unsaved = picker.draft;
   picker.original = JSON.stringify(n.ids);
   picker.confirming = n.ids.length > 0;
   $('#pickSearch').value = '';
@@ -91,7 +94,7 @@ function renderPicker() {
   btn.disabled = !games.length;
   btn.textContent = picker.confirming && !changed
     ? '✓ Sim, continuo jogando estes'
-    : `Pronto, ver meus ${games.length} ${games.length === 1 ? 'jogo' : 'jogos'}`;
+    : (games.length === 1 ? 'Pronto, ver meu jogo' : `Pronto, ver meus ${games.length} jogos`);
   if (full) $('#pickResults').innerHTML = '';
 }
 
@@ -144,6 +147,8 @@ $('#pickResults').addEventListener('click', (e) => {
   $('#pickSearch').value = '';
   $('#pickResults').innerHTML = '';
   renderPicker();
+  // cursor de volta na busca (o teclado não fecha) para já procurar o próximo
+  if (picker.draft.ids.length < NOW_MAX) $('#pickSearch').focus();
 });
 
 function addManual() {
@@ -156,6 +161,7 @@ function addManual() {
   picker.draft.ids.push(g.id);
   $('#manualName').value = '';
   renderPicker();
+  if (picker.draft.ids.length < NOW_MAX) $('#manualName').focus();
 }
 $('#manualAdd').onclick = addManual;
 $('#manualName').addEventListener('keydown', (e) => { if (e.key === 'Enter') addManual(); });
@@ -164,6 +170,7 @@ $('#pickConfirm').onclick = () => {
   const ids = picker.draft.ids;
   if (!ids.length) return;
   store.set('now', { ids, manual: picker.draft.manual.filter((m) => ids.includes(m.id)), confirmed: today() });
+  picker.unsaved = null;               // confirmado: não há mais rascunho pendente
   state.byCat.set('now', nowGames());
   renderStart();
   location.replace('#c=now');          // replace: o "voltar" da prateleira leva ao início

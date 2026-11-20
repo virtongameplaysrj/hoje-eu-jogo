@@ -220,3 +220,9 @@ dialog menu { display: flex; justify-content: flex-end; gap: 8px; padding: 0; ma
 .intro-sub { margin: 10px 0 0; font-size: 13px; letter-spacing: 3px; color: #9aa3d0; text-transform: uppercase; }
 .intro-skip { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; margin: 0;
   font-size: 12px; letter-spacing: 2px; color: rgba(255,255,255,.4); text-transform: uppercase; }
+
+/* ---------- ajustes da análise no emulador ---------- */
+.yt-link { display: inline-block; margin-top: 6px; font-size: 13px; font-weight: 600; color: var(--accent2); text-decoration: none; }
+.yt-link[hidden] { display: none; }
+input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.prow .x { display: flex; align-items: center; justify-content: center; line-height: 1; font-size: 15px; }

@@ -78,6 +78,7 @@
         <h2 id="infoName"></h2>
         <p class="meta" id="infoMeta"></p>
         <p class="desc" id="infoDesc"></p>
+        <a class="yt-link" id="infoYt" hidden>▶ Ver gameplay no YouTube</a>
       </div>
     </div>
 
@@ -138,12 +139,14 @@
     <p class="intro-skip">toque para pular</p>
   </div>
 
-  <script src="vendor/hls.min.js"></script>
+  <!-- a abertura carrega primeiro, para responder ao toque na hora;
+       o hls.js (400 KB, só para trailers com som) vem por último, sem bloquear nada -->
   <script src="sound.js"></script>
+  <script src="intro.js"></script>
   <script src="categories.js"></script>
   <script src="app.js"></script>
   <script src="roulette.js"></script>
   <script src="now.js"></script>
-  <script src="intro.js"></script>
+  <script src="vendor/hls.min.js" async></script>
 </body>
 </html>

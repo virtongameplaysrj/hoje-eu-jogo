@@ -252,8 +252,11 @@ function showInfo(g) {
   $('#infoName').textContent = g.name;
   const played = g.minutes ? `Jogou ${g.minutes >= 60 ? Math.round(g.minutes / 60) + 'h' : g.minutes + 'min'}` : 'Nunca jogado';
   $('#infoMeta').textContent = [played, ...(g.tags || []).slice(0, 3)].join(' · ');
-  $('#infoDesc').innerHTML = esc(g.desc || '') +
-    (!g.trailer && !g.youtube ? ` <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(g.name + ' gameplay')}" style="color:var(--accent2)">▶ ver gameplay no YouTube</a>` : '');
+  $('#infoDesc').textContent = g.desc || '';
+  // link próprio (antes ficava no fim da descrição e sumia no corte de 2 linhas)
+  const yt = $('#infoYt');
+  yt.hidden = !!(g.trailer || g.youtube);
+  yt.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(g.name + ' gameplay')}`;
   $('#hideBtn').textContent = state.cat === 'now' ? 'Tirar da lista' : (g.id.startsWith('ps2:') ? 'Remover jogo' : 'Ocultar jogo');
 
   const img = $('#stageImg');
@@ -308,6 +311,9 @@ function stopTrailer() {
   fresh.removeAttribute('src');
   fresh.classList.remove('on');
   v.replaceWith(fresh);
+  // libera o vídeo antigo de vez: no Android o último quadro dele ficava na tela por segundos
+  v.removeAttribute('src');
+  v.load();
   yt.classList.remove('on'); yt.hidden = true; yt.removeAttribute('src');
   $('#soundBtn').hidden = true;
 }

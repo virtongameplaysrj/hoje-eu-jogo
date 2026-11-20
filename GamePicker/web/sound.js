@@ -85,6 +85,16 @@ const Sound = (() => {
     bus.gain.setValueAtTime(bus.gain.value, t);
     bus.gain.linearRampToValueAtTime(0, t + fade);
     setTimeout(() => bus.disconnect(), fade * 1000 + 200);
+    sleepSoon();
+  }
+
+  /** Sem som tocando, o canal de áudio ficaria ligado em silêncio gastando bateria: suspende. */
+  let sleepTimer = 0;
+  function sleepSoon(ms = 2500) {
+    clearTimeout(sleepTimer);
+    sleepTimer = setTimeout(() => {
+      if (ctx && !circusTimer && ctx.state === 'running') ctx.suspend().catch(() => {});
+    }, ms);
   }
 
   /** Tique curto, como a palheta de uma roleta batendo nos pinos. */
@@ -101,6 +111,7 @@ const Sound = (() => {
     for (const m of [60, 64, 67]) note(m, t, 0.14, { type: 'sawtooth', peak: 0.07 });
     for (const m of [60, 64, 67, 72]) note(m, t + 0.18, 0.9, { type: 'sawtooth', peak: 0.07, release: 0.5 });
     for (const m of [48, 55]) note(m, t + 0.18, 0.9, { type: 'triangle', peak: 0.2, release: 0.5 });
+    sleepSoon();
   }
 
   /* ---------- abertura: drone espacial + fanfarra de metais (original) ---------- */

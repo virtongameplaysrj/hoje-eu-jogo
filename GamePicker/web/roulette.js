@@ -12,6 +12,7 @@ const Roulette = (() => {
   const strip = el.querySelector('.rl-strip');
   const hint = el.querySelector('.rl-hint');
   const result = el.querySelector('.rl-result');
+  const title = el.querySelector('.rl-title');
   let phase = 'idle', x = 0, raf = 0, last = 0, lastIdx = -1, lastTick = 0;
   let candidates = [], cards = [], onDone = null, autoTimer = 0, winnerIdx = -1, winner = null;
 
@@ -72,6 +73,7 @@ const Roulette = (() => {
     Sound.circusStop(0.15);
     Sound.tada();
     strip.children[winnerIdx].classList.add('win');
+    title.textContent = '🎉 Sorteado!';
     result.innerHTML = `<b>${esc(winner.name)}</b><span>Toque para jogar!</span>`;
     result.classList.remove('hidden');
     autoTimer = setTimeout(close, 2600);
@@ -107,6 +109,7 @@ const Roulette = (() => {
     hint.classList.remove('hidden');
     result.classList.add('hidden');
     el.classList.remove('hidden');
+    title.textContent = '🎪 Girando a roleta…';
     phase = 'spinning';
     Sound.circusStart();
     last = performance.now();

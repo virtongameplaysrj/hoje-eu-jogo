@@ -94,6 +94,10 @@
 
   // o subtítulo mostra o tamanho da biblioteca quando ela terminar de carregar
   const sub = el.querySelector('.intro-sub');
-  const fill = () => { if (state.all && state.all.length) sub.textContent = `${state.all.length} jogos esperando por você`; else setTimeout(fill, 300); };
+  // (intro.js roda antes do app.js, então `state` pode ainda não existir)
+  const fill = () => {
+    if (typeof state !== 'undefined' && state.all && state.all.length) sub.textContent = `${state.all.length} jogos esperando por você`;
+    else if (!done) setTimeout(fill, 300);
+  };
   setTimeout(fill, 300);
 })();
