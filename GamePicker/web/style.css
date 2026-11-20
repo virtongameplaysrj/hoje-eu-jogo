@@ -17,7 +17,7 @@ button { font: inherit; color: inherit; border: 0; border-radius: 12px; padding:
   background: var(--accent); font-weight: 600; cursor: pointer; }
 button.ghost { background: transparent; border: 1px solid var(--line); color: var(--muted); }
 .hidden { display: none !important; }
-.screen { position: absolute; inset: 0; overflow-y: auto; }
+.screen { position: absolute; inset: 0; overflow-y: auto; isolation: isolate; } /* z-index das caixas fica preso dentro da tela */
 
 /* ---------- home ---------- */
 .top { display: flex; justify-content: space-between; align-items: center; padding: 20px 16px 8px; }
@@ -174,3 +174,49 @@ dialog menu { display: flex; justify-content: flex-end; gap: 8px; padding: 0; ma
 .store.manual { background: #555; }
 #groupNow { background: radial-gradient(120% 90% at 85% 10%, rgba(139,92,246,.45), transparent 60%),
   radial-gradient(90% 80% at 10% 100%, rgba(236,72,153,.3), transparent 60%), var(--panel); }
+
+/* ---------- roleta ---------- */
+.roulette { position: fixed; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: center;
+  align-items: center; gap: 22px; user-select: none; touch-action: none;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, #3a0d18 0 15deg, #4a1220 15deg 30deg); }
+.roulette::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(255,214,90,.18), rgba(0,0,0,.65) 75%); }
+.roulette.hidden { display: none; }
+.rl-title { position: relative; font-size: 24px; font-weight: 800; color: #ffd65a; text-shadow: 0 3px 0 #7a1020; }
+.rl-window { position: relative; width: 100%; height: 190px; overflow: hidden;
+  border-top: 4px solid #ffd65a; border-bottom: 4px solid #ffd65a; background: rgba(0,0,0,.45);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
+.rl-strip { position: absolute; top: 15px; left: 0; display: flex; will-change: transform; }
+.rl-card { flex: none; width: 120px; height: 160px; margin-right: 12px; border-radius: 8px; overflow: hidden;
+  background: linear-gradient(160deg, #2b2050, #101020); display: flex; align-items: center; justify-content: center;
+  text-align: center; font-weight: 700; font-size: 13px; padding: 0; box-shadow: 0 6px 14px rgba(0,0,0,.5); }
+.rl-card span { padding: 8px; }
+.rl-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.rl-card.win { outline: 4px solid #ffd65a; animation: rl-pop .5s ease-out 2; }
+@keyframes rl-pop { 50% { transform: scale(1.12); } }
+.rl-pointer { position: absolute; left: 50%; top: -4px; bottom: -4px; width: 4px; margin-left: -2px;
+  background: #ffd65a; box-shadow: 0 0 12px #ffd65a; }
+.rl-pointer::before, .rl-pointer::after { content: ""; position: absolute; left: 50%; margin-left: -10px;
+  border: 10px solid transparent; }
+.rl-pointer::before { top: 0; border-top-color: #ffd65a; }
+.rl-pointer::after { bottom: 0; border-bottom-color: #ffd65a; }
+.rl-hint { position: relative; font-size: 17px; font-weight: 700; color: #fff; animation: rl-blink 1s infinite; }
+.rl-hint.hidden, .rl-result.hidden { display: none; }
+@keyframes rl-blink { 50% { opacity: .35; } }
+.rl-result { position: relative; text-align: center; padding: 0 20px; }
+.rl-result b { display: block; font-size: 22px; color: #ffd65a; }
+.rl-result span { color: #ddd; font-size: 14px; }
+
+/* ---------- abertura ---------- */
+#intro { position: fixed; inset: 0; z-index: 30; background: #03030a; transition: opacity .45s; cursor: pointer; }
+#intro canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+#intro.leaving { opacity: 0; pointer-events: none; }
+.intro-title { position: absolute; left: 0; right: 0; top: 42%; text-align: center; opacity: 0;
+  transform: scale(.92); transition: opacity 1.4s ease-out, transform 6s ease-out; }
+#intro.show-title .intro-title { opacity: 1; transform: scale(1); }
+.intro-title h1 { margin: 0; font-size: 34px; font-weight: 300; letter-spacing: 10px; color: #e8ecff;
+  text-shadow: 0 0 18px rgba(140,160,255,.8), 0 0 40px rgba(139,92,246,.6); }
+.intro-sub { margin: 10px 0 0; font-size: 13px; letter-spacing: 3px; color: #9aa3d0; text-transform: uppercase; }
+.intro-skip { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; margin: 0;
+  font-size: 12px; letter-spacing: 2px; color: rgba(255,255,255,.4); text-transform: uppercase; }

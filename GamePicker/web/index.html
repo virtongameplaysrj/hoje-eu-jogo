@@ -117,9 +117,33 @@
     </form>
   </dialog>
 
+  <!-- roleta do sorteio -->
+  <div id="roulette" class="roulette hidden">
+    <div class="rl-title">🎪 Girando a roleta…</div>
+    <div class="rl-window">
+      <div class="rl-strip"></div>
+      <div class="rl-pointer"></div>
+    </div>
+    <div class="rl-hint">👆 Toque na tela para parar!</div>
+    <div class="rl-result hidden"></div>
+  </div>
+
+  <!-- abertura (some sozinha ou com um toque) -->
+  <div id="intro">
+    <canvas></canvas>
+    <div class="intro-title">
+      <h1>HOJE EU JOGO</h1>
+      <p class="intro-sub"></p>
+    </div>
+    <p class="intro-skip">toque para pular</p>
+  </div>
+
   <script src="vendor/hls.min.js"></script>
+  <script src="sound.js"></script>
   <script src="categories.js"></script>
   <script src="app.js"></script>
+  <script src="roulette.js"></script>
   <script src="now.js"></script>
+  <script src="intro.js"></script>
 </body>
 </html>

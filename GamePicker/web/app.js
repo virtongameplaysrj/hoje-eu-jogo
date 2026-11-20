@@ -336,13 +336,12 @@ $('#backBtn').onclick = () => history.back();
 /* ---------------- sortear / ocultar ---------------- */
 $('#pickHere').onclick = () => {
   if (!state.list.length) return;
-  const g = weightedPick(state.list);
-  scrollToIndex(state.list.indexOf(g));
+  stopTrailer();                                  // não misturar o trailer com o circo
+  Roulette.open(state.list, (g) => scrollToIndex(state.list.indexOf(g)));
 };
 
 $('#surpriseAll').onclick = () => {
-  const g = weightedPick(state.all);
-  go(g.cats[0], g.id);
+  Roulette.open(state.all, (g) => go(g.cats[0], g.id));
 };
 
 $('#hideBtn').onclick = async () => {
