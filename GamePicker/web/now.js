@@ -181,6 +181,7 @@ $('#pickConfirm').onclick = () => {
 loadLibrary().then(() => {
   renderHome();
   // sessão em andamento (app foi fechado jogando): volta direto para o timer
-  if (Stats.session() && !location.hash) location.replace('#playing');
+  // (empilha o início antes, para o "voltar" do Android levar à tela inicial e não fechar o app)
+  if (Stats.session() && !location.hash) { route(); location.hash = 'playing'; return; }
   route();
 });
