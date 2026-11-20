@@ -22,6 +22,7 @@ function removeFromNow(id) {
 
 /* ---------------- tela inicial ---------------- */
 function renderStart() {
+  if (typeof renderPlayingBanner === 'function') renderPlayingBanner();
   const n = loadNow();
   const mine = nowGames(n);
   $('#startCount').textContent = `${state.all.length} jogos na biblioteca`;
@@ -177,4 +178,9 @@ $('#pickConfirm').onclick = () => {
 };
 
 /* ---------------- inicialização ---------------- */
-loadLibrary().then(() => { renderHome(); route(); });
+loadLibrary().then(() => {
+  renderHome();
+  // sessão em andamento (app foi fechado jogando): volta direto para o timer
+  if (Stats.session() && !location.hash) location.replace('#playing');
+  route();
+});

@@ -39,7 +39,9 @@ const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = (Mat
 
 /** Sorteio com peso: jogos nunca jogados têm 3x mais chance. */
 function weightedPick(list) {
-  const w = list.map((g) => (g.minutes ? 1 : 3));
+  // pesos do histórico do app (stats.js): rodízio no "Estou jogando", exploração no resto
+  const mode = state.cat === 'now' ? 'now' : 'all';
+  const w = list.map((g) => Stats.weight(g, mode));
   let r = Math.random() * w.reduce((a, b) => a + b, 0);
   for (let i = 0; i < list.length; i++) { r -= w[i]; if (r <= 0) return list[i]; }
   return list[list.length - 1];
@@ -77,6 +79,8 @@ function route() {
   closeShelf();
   if (h === 'cats') showScreen('home');
   else if (h === 'now-pick') openPicker();
+  else if (h === 'playing') openPlaying();
+  else if (h === 'history') openHistory();
   else { renderStart(); showScreen('start'); }
 }
 window.addEventListener('hashchange', route);
@@ -343,12 +347,22 @@ $('#backBtn').onclick = () => history.back();
 $('#pickHere').onclick = () => {
   if (!state.list.length) return;
   stopTrailer();                                  // não misturar o trailer com o circo
-  Roulette.open(state.list, (g) => scrollToIndex(state.list.indexOf(g)));
+  Roulette.open(state.list, {
+    onPlay: startPlaying,
+    onShow: (g) => scrollToIndex(state.list.indexOf(g)),
+  });
 };
 
 $('#surpriseAll').onclick = () => {
-  Roulette.open(state.all, (g) => go(g.cats[0], g.id));
+  Roulette.open(state.all, { onPlay: startPlaying, onShow: (g) => go(g.cats[0], g.id) });
 };
+
+/** "Vou jogar": registra no histórico e abre a tela do timer. */
+function startPlaying(g) {
+  stopTrailer();
+  Stats.start(g);
+  location.hash = 'playing';
+}
 
 $('#hideBtn').onclick = async () => {
   const g = state.list[state.idx];

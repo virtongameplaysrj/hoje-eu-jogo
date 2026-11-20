@@ -15,6 +15,7 @@
         <p class="sub" id="startCount"></p>
       </div>
     </header>
+    <button class="playing-banner" id="playingBanner" hidden></button>
     <div class="groups">
       <button class="group" id="groupNow">
         <div class="collage" id="nowCollage"></div>
@@ -26,8 +27,68 @@
         <span class="emoji">📚</span>
         <div class="label"><b>Todas as categorias</b><span id="catsSub"></span></div>
       </button>
+      <button class="ghost hist-btn" id="openHistory">📊 Meu histórico</button>
     </div>
   </section>
+
+  <!-- PLAYING: timer of the current session (play.js) -->
+  <section id="playing" class="screen hidden">
+    <header class="top">
+      <button class="round" id="playingBack" aria-label="Voltar">←</button>
+      <div class="grow">
+        <h1>Jogando agora</h1>
+        <p class="sub" id="playingSince"></p>
+      </div>
+    </header>
+    <div class="play-hero">
+      <h2 id="playingName"></h2>
+      <div class="play-cover" id="playingCover"></div>
+      <div class="play-timer" id="playingTimer">0:00:00</div>
+      <p class="hint">Pode bloquear o celular ou fechar o app: o tempo continua contando.</p>
+    </div>
+    <div class="picker-actions"><button id="stopPlaying">⏹ Vou parar de jogar</button></div>
+  </section>
+
+  <!-- HISTORY: plays and time registered in the app (play.js) -->
+  <section id="history" class="screen hidden">
+    <header class="top">
+      <button class="round" id="historyBack" aria-label="Voltar">←</button>
+      <div class="grow">
+        <h1>Meu histórico</h1>
+        <p class="sub" id="historySub"></p>
+      </div>
+    </header>
+    <div class="picked" id="historyList"></div>
+    <div class="hist-backup">
+      <p class="hint">Backup do histórico, da lista "Estou jogando", dos jogos de PS2 e dos ocultos.
+        Guarde o texto copiado (num e-mail para você, por exemplo) e cole aqui se reinstalar o app.</p>
+      <div class="row">
+        <button id="backupCopy" class="ghost">📋 Copiar backup</button>
+        <button id="backupPaste" class="ghost">📥 Restaurar</button>
+      </div>
+    </div>
+  </section>
+
+  <dialog id="fixDialog">
+    <form method="dialog">
+      <h2>Esqueceu de parar?</h2>
+      <p class="hint" id="fixText"></p>
+      <label>Minutos jogados<input id="fixMinutes" type="number" min="0" inputmode="numeric"></label>
+      <menu><button value="ok">Salvar</button></menu>
+    </form>
+  </dialog>
+
+  <dialog id="restoreDialog">
+    <form method="dialog">
+      <h2>Restaurar backup</h2>
+      <p class="hint">Cole aqui o texto do backup. Ele substitui os dados atuais do app.</p>
+      <textarea id="restoreText" rows="6"></textarea>
+      <menu>
+        <button value="cancel" class="ghost" formnovalidate>Cancelar</button>
+        <button value="ok">Restaurar</button>
+      </menu>
+    </form>
+  </dialog>
 
   <!-- NOW PICKER: choose / confirm up to NOW_MAX (now.js) games -->
   <section id="picker" class="screen hidden">
@@ -120,13 +181,16 @@
 
   <!-- roleta do sorteio -->
   <div id="roulette" class="roulette hidden">
-    <div class="rl-title">🎪 Girando a roleta…</div>
-    <div class="rl-window">
-      <div class="rl-strip"></div>
-      <div class="rl-pointer"></div>
+    <button class="rl-close round" aria-label="Fechar roleta">✕</button>
+    <div class="rl-stage">
+      <div class="rl-title">🎪 Girando a roleta…</div>
+      <div class="rl-window">
+        <div class="rl-strip"></div>
+        <div class="rl-pointer"></div>
+      </div>
+      <div class="rl-hint">👆 Toque na tela para parar!</div>
+      <div class="rl-result hidden"></div>
     </div>
-    <div class="rl-hint">👆 Toque na tela para parar!</div>
-    <div class="rl-result hidden"></div>
   </div>
 
   <!-- abertura (some sozinha ou com um toque) -->
@@ -146,7 +210,9 @@
   <script src="categories.js"></script>
   <script src="app.js"></script>
   <script src="roulette.js"></script>
+  <script src="stats.js"></script>
   <script src="now.js"></script>
+  <script src="play.js"></script>
   <script src="vendor/hls.min.js" async></script>
 </body>
 </html>

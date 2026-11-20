@@ -144,13 +144,19 @@ const Sound = (() => {
       note(m, t, warpAt + 1.5, { type: 'sawtooth', peak: 0.05, attack: warpAt * 0.8, release: 1.2, detune: det });
     }
     whoosh(t + warpAt - 1.6, 2.2);
-    // fanfarra depois do salto: Lá maior → Fá maior → Sol maior → Lá maior
-    const f0 = t + warpAt + 0.3;
+    // "carga" do anel de energia: um zumbido que sobe de tom até o salto
+    const rs = t + warpAt - 3, o = ctx.createOscillator(), og = ctx.createGain(), of = ctx.createBiquadFilter();
+    o.type = 'sawtooth'; of.type = 'lowpass'; of.frequency.value = 1800;
+    o.frequency.setValueAtTime(70, rs); o.frequency.exponentialRampToValueAtTime(620, t + warpAt);
+    og.gain.setValueAtTime(0, rs); og.gain.linearRampToValueAtTime(0.06, t + warpAt - 0.1); og.gain.linearRampToValueAtTime(0, t + warpAt + 0.15);
+    o.connect(of); of.connect(og); og.connect(master); o.start(rs); o.stop(t + warpAt + 0.2);
+    // fanfarra depois do salto: Lá maior → Fá maior → Sol maior → Lá maior (comprimida para caber em ~5 s)
+    const f0 = t + warpAt + 0.3, K = 0.62;
     const line = [[57, 0, 0.5], [64, 0.5, 0.5], [69, 1.0, 1.4], [68, 2.4, 0.3], [69, 2.7, 0.3], [72, 3.0, 1.6],
                   [71, 4.6, 0.4], [74, 5.0, 0.6], [76, 5.6, 2.6]];
-    for (const [m, at, d] of line) brass(m, f0 + at, d, 0.055);
+    for (const [m, at, d] of line) brass(m, f0 + at * K, d * K, 0.055);
     for (const [ch, at, d] of [[[45, 52, 61], 1.0, 2.0], [[41, 53, 60], 3.0, 1.6], [[43, 55, 59], 4.6, 1.0], [[45, 57, 64, 69], 5.6, 2.8]]) {
-      for (const m of ch) brass(m, f0 + at, d, 0.03);
+      for (const m of ch) brass(m, f0 + at * K, d * K, 0.03);
     }
   }
 
@@ -191,10 +197,27 @@ const Sound = (() => {
     return v.buffer;
   }
 
+  /** Rufar de tambor: batidas curtas de ruído (caixa) que aceleram e crescem durante `sec` segundos. */
+  function drumroll(sec) {
+    if (!audio()) return;
+    const n = Math.floor(ctx.sampleRate * 0.05), buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3);   // estalo que decai
+    const t0 = ctx.currentTime + 0.02;
+    let t = 0, gap = 0.06;
+    while (t < sec) {
+      const src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+      src.buffer = buf; f.type = 'highpass'; f.frequency.value = 900;
+      g.gain.value = 0.08 + 0.32 * (t / sec);
+      src.connect(f); f.connect(g); g.connect(master); src.start(t0 + t);
+      t += gap; gap = Math.max(0.028, gap * 0.94);
+    }
+    note(43, t0 + sec, 0.25, { type: 'triangle', peak: 0.3, release: 0.2 });   // bumbo no fim
+  }
+
   function stopAll() { circusStop(0.2); }
 
   // qualquer toque "destrava" o áudio ao vivo (roleta, tiques) o quanto antes
   document.addEventListener('pointerdown', () => audio(), { capture: true, once: true });
 
-  return { unlock: audio, circusStart, circusStop, tick, tada, introTrack, stopAll };
+  return { unlock: audio, circusStart, circusStop, tick, tada, drumroll, introTrack, stopAll };
 })();
