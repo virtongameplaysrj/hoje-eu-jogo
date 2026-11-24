@@ -17,16 +17,24 @@
     </header>
     <button class="playing-banner" id="playingBanner" hidden></button>
     <div class="groups">
+      <button class="group" id="groupGi">
+        <div class="collage" id="giCollage"></div>
+        <span class="emoji">💜</span>
+        <span class="edit">✏️ Editar</span>
+        <div class="label"><b>Estou jogando com a Gi</b><span id="giSub"></span></div>
+      </button>
       <button class="group" id="groupNow">
         <div class="collage" id="nowCollage"></div>
         <span class="emoji">🎮</span>
-        <div class="label"><b>Estou jogando agora</b><span id="nowSub"></span></div>
+        <span class="edit">✏️ Editar</span>
+        <div class="label"><b>Estou jogando sozinho</b><span id="nowSub"></span></div>
       </button>
       <button class="group" id="groupCats">
         <div class="collage" id="catsCollage"></div>
         <span class="emoji">📚</span>
         <div class="label"><b>Todas as categorias</b><span id="catsSub"></span></div>
       </button>
+      <button class="ghost hist-btn agenda-btn" id="openAgenda">📅 Minha agenda<small id="agendaSub"></small></button>
       <button class="ghost hist-btn" id="openHistory">📊 Meu histórico</button>
     </div>
   </section>
@@ -56,6 +64,7 @@
       <div class="grow">
         <h1>Meu histórico</h1>
         <p class="sub" id="historySub"></p>
+        <p class="sub" id="historyWeek"></p>
       </div>
     </header>
     <div class="picked" id="historyList"></div>
@@ -89,6 +98,37 @@
       </menu>
     </form>
   </dialog>
+
+  <!-- AGENDA: horários livres da semana com os jogos "sozinho" distribuídos (agenda.js) -->
+  <section id="agenda" class="screen hidden">
+    <header class="top">
+      <button class="round" id="agendaBack" aria-label="Voltar">←</button>
+      <div class="grow">
+        <h1 id="agendaTitle">Minha agenda</h1>
+        <p class="sub" id="agendaHead"></p>
+      </div>
+    </header>
+    <div id="agendaWeek"></div>
+    <div id="agendaSetup" hidden>
+      <p class="hint ag-intro">Em quais dias e horários você costuma ter tempo para jogar sozinho?
+        Eu distribuo os jogos da sua lista "Estou jogando sozinho" nesses horários.</p>
+      <div id="agendaDays"></div>
+      <div class="ag-opts">
+        <label>Cada jogo fica
+          <select id="agendaSession">
+            <option value="0">o horário inteiro</option>
+            <option value="30">30 min</option>
+            <option value="45">45 min</option>
+            <option value="60">1 hora</option>
+            <option value="90">1h30</option>
+            <option value="120">2 horas</option>
+          </select>
+        </label>
+        <button class="ghost" id="agendaCopy">Repetir os horários de segunda de terça a sexta</button>
+      </div>
+    </div>
+    <div class="picker-actions"><button id="agendaAction"></button></div>
+  </section>
 
   <!-- NOW PICKER: choose / confirm up to NOW_MAX (now.js) games -->
   <section id="picker" class="screen hidden">
@@ -144,7 +184,10 @@
     </div>
 
     <div class="toolbar">
-      <h3 id="shelfTitle"></h3>
+      <div class="toolbar-row">
+        <h3 id="shelfTitle"></h3>
+        <button class="chip" id="editList" hidden>✏️ Editar lista</button>
+      </div>
       <div class="chips" id="chips"></div>
     </div>
 
@@ -212,6 +255,7 @@
   <script src="roulette.js"></script>
   <script src="stats.js"></script>
   <script src="now.js"></script>
+  <script src="agenda.js"></script>
   <script src="play.js"></script>
   <script src="vendor/hls.min.js" async></script>
 </body>

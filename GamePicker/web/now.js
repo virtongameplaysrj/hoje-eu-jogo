@@ -1,36 +1,54 @@
-/* "Estou jogando agora": até NOW_MAX jogos, confirmados uma vez por dia.
-   Salvo no aparelho como { ids: [...], manual: [jogos digitados], confirmed: 'AAAA-M-D' } */
+/* Listas "Estou jogando": com a Gi e sozinho. Até NOW_MAX jogos cada, confirmados uma vez por semana
+   e editáveis a qualquer momento (✏️). Salvo no aparelho como
+   { ids: [...], manual: [jogos digitados], confirmed: 'AAAA-M-D' }.
+   A lista "sozinho" usa a chave antiga 'now' (era a única "Estou jogando agora"), então nada se perde. */
 const NOW_MAX = 15;
+const LISTS = {
+  gi:  { key: 'gi',  store: 'nowGi', label: 'Estou jogando com a Gi', emoji: '💜' },
+  now: { key: 'now', store: 'now',   label: 'Estou jogando sozinho',  emoji: '🎮' },
+};
+const isListCat = (cat) => cat in LISTS;
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
-const loadNow = () => store.get('now', null);
-const confirmedToday = (n) => !!(n && n.ids.length && n.confirmed === today());
+const loadNow = (list = 'now') => store.get(LISTS[list].store, null);
+const CONFIRM_DAYS = 7;   // pergunta "ainda está jogando estes?" uma vez por semana (dá para editar a qualquer hora)
+/** A lista foi confirmada (ou editada) nos últimos CONFIRM_DAYS dias? */
+function confirmedToday(n) {
+  if (!n || !n.ids.length || !n.confirmed) return false;
+  const [y, m, d] = n.confirmed.split('-').map(Number);
+  const now = new Date();
+  return (new Date(now.getFullYear(), now.getMonth(), now.getDate()) - new Date(y, m - 1, d)) / 864e5 < CONFIRM_DAYS;
+}
 
-/** Jogos da lista, na ordem escolhida (os da biblioteca + os adicionados à mão). */
-function nowGames(n = loadNow()) {
+/** Jogos de uma lista salva, na ordem escolhida (os da biblioteca + os adicionados à mão). */
+function nowGames(n) {
   if (!n) return [];
   const byId = new Map(state.all.map((g) => [g.id, g]));
   return n.ids.map((id) => byId.get(id) || n.manual.find((m) => m.id === id)).filter(Boolean);
 }
+const listGames = (list) => nowGames(loadNow(list));
 
-function removeFromNow(id) {
-  const n = loadNow();
+function removeFromNow(list, id) {
+  const n = loadNow(list);
   if (!n) return;
   n.ids = n.ids.filter((x) => x !== id);
   n.manual = n.manual.filter((m) => m.id !== id);
-  store.set('now', n);
+  store.set(LISTS[list].store, n);
 }
 
 /* ---------------- tela inicial ---------------- */
 function renderStart() {
   if (typeof renderPlayingBanner === 'function') renderPlayingBanner();
-  const n = loadNow();
-  const mine = nowGames(n);
+  if (typeof renderAgendaButton === 'function') renderAgendaButton();
   $('#startCount').textContent = `${state.all.length} jogos na biblioteca`;
-  $('#nowSub').textContent = !mine.length
-    ? `Escolha até ${NOW_MAX} jogos que você está jogando`
-    : `${mine.length} ${mine.length === 1 ? 'jogo' : 'jogos'}` + (confirmedToday(n) ? '' : ' · confirmar hoje');
-  $('#nowCollage').innerHTML = mine.filter((g) => g.cover).slice(0, 4)
-    .map((g) => `<img src="${g.cover}" alt="" loading="lazy">`).join('');
+  for (const key of Object.keys(LISTS)) {
+    const n = loadNow(key);
+    const mine = nowGames(n);
+    $(`#${key}Sub`).textContent = !mine.length
+      ? `Escolha até ${NOW_MAX} jogos`
+      : `${mine.length} ${mine.length === 1 ? 'jogo' : 'jogos'}` + (confirmedToday(n) ? '' : ' · confirmar a lista');
+    $(`#${key}Collage`).innerHTML = mine.filter((g) => g.cover).slice(0, 4)
+      .map((g) => `<img src="${g.cover}" alt="" loading="lazy">`).join('');
+  }
   const cats = CATEGORIES.filter((c) => state.byCat.get(c.key).length).length;
   $('#catsSub').textContent = `${cats} categorias · ${state.all.length} jogos`;
   if (!$('#catsCollage').children.length) {
@@ -39,26 +57,35 @@ function renderStart() {
   }
 }
 
-$('#groupNow').onclick = () => {
-  // já confirmou hoje → direto para os jogos; senão → tela de escolher/confirmar
-  if (confirmedToday(loadNow())) go('now');
-  else location.hash = 'now-pick';
-};
+/** Abre o editor de uma lista: a qualquer momento, sem esperar a confirmação do dia. */
+const editList = (list) => { location.hash = `pick=${list}&edit=1`; };
+
+for (const key of Object.keys(LISTS)) {
+  $(`#group${key === 'gi' ? 'Gi' : 'Now'}`).onclick = (e) => {
+    if (e.target.closest('.edit')) return editList(key);
+    // já confirmou hoje → direto para os jogos; senão → tela de escolher/confirmar
+    if (confirmedToday(loadNow(key))) go(key);
+    else location.hash = `pick=${key}`;
+  };
+}
 $('#groupCats').onclick = () => { location.hash = 'cats'; };
 $('#homeBack').onclick = () => history.back();
 $('#pickerBack').onclick = () => history.back();
+$('#editList').onclick = () => { if (isListCat(state.cat)) editList(state.cat); };
 
-/* ---------------- escolher / confirmar ---------------- */
-// unsaved: rascunho que sobrevive a um "voltar" sem querer (até confirmar ou fechar o app)
-const picker = { draft: null, original: '', confirming: false, unsaved: null };
+/* ---------------- escolher / confirmar / editar ---------------- */
+// unsaved: rascunho por lista que sobrevive a um "voltar" sem querer (até salvar ou fechar o app)
+const picker = { list: 'now', mode: 'new', draft: null, original: '', unsaved: {} };
 
-function openPicker() {
-  const n = loadNow() || { ids: [], manual: [] };
-  const src = picker.unsaved || n;
+/** mode: 'new' (lista vazia) · 'confirm' (pergunta do dia) · 'edit' (✏️ a qualquer momento) */
+function openPicker(list, edit) {
+  picker.list = list;
+  const n = loadNow(list) || { ids: [], manual: [] };
+  const src = picker.unsaved[list] || n;
   picker.draft = { ids: src.ids.slice(), manual: src.manual.slice() };
-  picker.unsaved = picker.draft;
+  picker.unsaved[list] = picker.draft;
   picker.original = JSON.stringify(n.ids);
-  picker.confirming = n.ids.length > 0;
+  picker.mode = edit ? 'edit' : (n.ids.length ? 'confirm' : 'new');
   $('#pickSearch').value = '';
   $('#manualName').value = '';
   $('#pickResults').innerHTML = '';
@@ -79,10 +106,13 @@ function rowHtml(g, action) {
 function renderPicker() {
   const games = draftGames();
   const changed = JSON.stringify(picker.draft.ids) !== picker.original;
-  $('#pickerTitle').textContent = picker.confirming ? 'Ainda está jogando estes?' : 'O que você está jogando agora?';
-  $('#pickerSub').textContent = picker.confirming
-    ? `${games.length} de ${NOW_MAX} · toque em ✕ para tirar um, busque abaixo para trocar`
-    : `${games.length} de ${NOW_MAX} · busque na biblioteca ou digite o nome`;
+  const L = LISTS[picker.list];
+  const who = picker.list === 'gi' ? 'com a Gi' : 'sozinho';
+  $('#pickerTitle').textContent = picker.mode === 'edit' ? `✏️ ${L.label}`
+    : picker.mode === 'confirm' ? `Ainda está jogando estes ${who}?` : `O que você está jogando ${who}?`;
+  $('#pickerSub').textContent = picker.mode === 'new'
+    ? `${games.length} de ${NOW_MAX} · busque na biblioteca ou digite o nome`
+    : `${games.length} de ${NOW_MAX} · toque em ✕ para tirar um, busque abaixo para trocar`;
   $('#picked').innerHTML = games.length
     ? games.map((g) => rowHtml(g, 'remove')).join('')
     : `<p class="empty-pick">Nenhum jogo ainda.</p>`;
@@ -92,9 +122,9 @@ function renderPicker() {
   $('#manualName').disabled = full;
   $('#manualAdd').disabled = full;
   const btn = $('#pickConfirm');
-  btn.disabled = !games.length;
-  btn.textContent = picker.confirming && !changed
-    ? '✓ Sim, continuo jogando estes'
+  btn.disabled = picker.mode !== 'edit' && !games.length;   // editando, pode até esvaziar a lista
+  btn.textContent = picker.mode === 'edit' ? (changed ? '✓ Salvar lista' : '✓ Pronto')
+    : picker.mode === 'confirm' && !changed ? '✓ Sim, continuo jogando estes'
     : (games.length === 1 ? 'Pronto, ver meu jogo' : `Pronto, ver meus ${games.length} jogos`);
   if (full) $('#pickResults').innerHTML = '';
 }
@@ -168,13 +198,14 @@ $('#manualAdd').onclick = addManual;
 $('#manualName').addEventListener('keydown', (e) => { if (e.key === 'Enter') addManual(); });
 
 $('#pickConfirm').onclick = () => {
-  const ids = picker.draft.ids;
-  if (!ids.length) return;
-  store.set('now', { ids, manual: picker.draft.manual.filter((m) => ids.includes(m.id)), confirmed: today() });
-  picker.unsaved = null;               // confirmado: não há mais rascunho pendente
-  state.byCat.set('now', nowGames());
+  const ids = picker.draft.ids, list = picker.list;
+  if (!ids.length && picker.mode !== 'edit') return;
+  store.set(LISTS[list].store, { ids, manual: picker.draft.manual.filter((m) => ids.includes(m.id)), confirmed: today() });
+  delete picker.unsaved[list];         // salvo: não há mais rascunho pendente
+  state.byCat.set(list, listGames(list));
   renderStart();
-  location.replace('#c=now');          // replace: o "voltar" da prateleira leva ao início
+  if (picker.mode === 'edit') { toast('Lista salva'); history.back(); }   // volta para onde estava
+  else location.replace(`#c=${list}`);  // replace: o "voltar" da prateleira leva ao início
 };
 
 /* ---------------- inicialização ---------------- */

@@ -79,13 +79,22 @@ function openHistory() {
   $('#historySub').textContent = rows.length
     ? `${plays} ${plays === 1 ? 'jogada' : 'jogadas'} · ${fmtMinutes(mins)} no total`
     : 'Nada registrado ainda';
+  // esta semana (segunda a domingo), separado por lista
+  const now = new Date();
+  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7)).getTime();
+  const week = Stats.sessionsSince(monday);
+  const sum = (f) => week.filter(f).reduce((s, e) => s + e.minutes, 0);
+  const total = sum(() => true), gi = sum((e) => e.list === 'gi'), solo = sum((e) => e.list === 'now');
+  const parts = [gi && `com a Gi ${fmtMinutes(gi)}`, solo && `sozinho ${fmtMinutes(solo)}`,
+    total - gi - solo && `outros ${fmtMinutes(total - gi - solo)}`].filter(Boolean);
+  $('#historyWeek').textContent = total ? `Esta semana: ${fmtMinutes(total)}` + (parts.length > 1 || gi ? ` (${parts.join(' · ')})` : '') : '';
   $('#historyList').innerHTML = rows.length ? rows.map((r) => {
     const thumb = r.cover ? `<img src="${r.cover}" alt="" loading="lazy">` : `<span class="ph">🎮</span>`;
     const bits = [`${r.plays}× jogado`, fmtMinutes(r.minutes)];
     if (r.last) bits.push(`última: ${when(r.last)}`);
     if (r.rejects) bits.push(`recusado ${r.rejects}×`);
     return `<div class="prow">${thumb}<span class="nm">${esc(r.name || r.id)}<small>${bits.join(' · ')}</small></span></div>`;
-  }).join('') : `<p class="empty-pick">Quando você tocar em "Vou jogar" na roleta, seus jogos aparecem aqui.</p>`;
+  }).join('') : `<p class="empty-pick">Quando você tocar em "Vou jogar" (na roleta ou num jogo), seus jogos aparecem aqui.</p>`;
   showScreen('history');
 }
 

@@ -18,6 +18,7 @@ const Roulette = (() => {
   let phase = 'idle', x = 0, raf = 0, last = 0, lastIdx = -1, lastTick = 0;
   let candidates = [], cards = [], autoTimer = 0, winnerIdx = -1, winner = null;
   let excluded = new Set(), handlers = {};
+  let mode = 'spin';        // 'spin' = roleta · 'confirm' = jogo escolhido à mão (só a pergunta final)
 
   const buzz = (p) => { try { navigator.vibrate && navigator.vibrate(p); } catch { /* sem vibração */ } };
 
@@ -62,7 +63,7 @@ const Roulette = (() => {
     clearTimeout(autoTimer);
     cancelAnimationFrame(raf);
     hint.classList.add('hidden');
-    winner = weightedPick(candidates.filter((g) => !excluded.has(g.id)));
+    winner = (handlers.pick || weightedPick)(candidates.filter((g) => !excluded.has(g.id)));
     // ease-out cúbico começa com velocidade 3·dist/D; igualamos à velocidade atual
     const ideal = SPIN_SPEED * STOP_MS / 3;
     winnerIdx = Math.ceil((x + ideal - MID) / CARD);
@@ -110,19 +111,48 @@ const Roulette = (() => {
   });
 
   el.addEventListener('click', (e) => {
-    if (e.target.closest('.rl-close')) return close(phase === 'done');
+    if (e.target.closest('.rl-close')) {
+      if (mode === 'confirm') { close(false); if (handlers.onCancel) handlers.onCancel(); return; }
+      return close(phase === 'done');
+    }
     if (phase !== 'done') return;
-    if (e.target.closest('.rl-play')) {
+    if (mode === 'confirm' && e.target.closest('.rl-other')) {
+      close(false);                          // escolha manual: não conta como recusa
+      if (handlers.onCancel) handlers.onCancel();
+    } else if (e.target.closest('.rl-play')) {
       const g = winner;
       close(false);
       if (handlers.onPlay) handlers.onPlay(g);
     } else if (e.target.closest('.rl-other')) {
       Stats.reject(winner);                  // conta como recusa: menos chance nos próximos dias
       excluded.add(winner.id);               // e não sai de novo nesta roleta
-      strip.children[winnerIdx].classList.remove('win');
-      startSpinning();
+      const listName = handlers.offerRemove && handlers.offerRemove(winner);
+      if (listName) offerRemove(listName);   // recusado várias vezes: pergunta antes de girar de novo
+      else spinAgain();
+    } else if (e.target.closest('.rl-remove')) {
+      if (handlers.onRemove) handlers.onRemove(winner);
+      spinAgain();
+    } else if (e.target.closest('.rl-keep')) {
+      spinAgain();
     }
   });
+
+  const leftCount = () => candidates.filter((g) => !excluded.has(g.id)).length;
+
+  function spinAgain() {
+    strip.children[winnerIdx].classList.remove('win');
+    if (leftCount()) startSpinning();
+    else close(false);                       // não sobrou nenhum jogo para sortear
+  }
+
+  function offerRemove(listName) {
+    title.textContent = '🤔 De novo?';
+    result.innerHTML = `<b>${esc(winner.name)}</b>
+      <span>Você recusou este jogo ${Stats.rejectsThisWeek(winner.id)} vezes nesta semana.
+        Quer tirar da lista "${esc(listName)}"?</span>
+      <button class="rl-remove">Tirar da lista</button>
+      <button class="rl-keep ghost">${leftCount() ? 'Manter e girar de novo' : 'Manter na lista'}</button>`;
+  }
 
   /**
    * Abre a roleta com estes candidatos.
@@ -130,6 +160,7 @@ const Roulette = (() => {
    */
   function open(list, h) {
     if (!list.length || phase !== 'idle') return;
+    mode = 'spin';
     candidates = list;
     handlers = h || {};
     excluded = new Set();
@@ -153,5 +184,31 @@ const Roulette = (() => {
     setTimeout(() => { if (phase === 'entering') startSpinning(); }, ENTER_MS);
   }
 
-  return { open };
+  /**
+   * Só a pergunta final, para um jogo escolhido à mão: "Vou jogar" ou "Não vou jogar agora".
+   * handlers.onPlay(jogo) · handlers.onCancel()
+   */
+  function confirm(g, h) {
+    if (!g || phase !== 'idle') return;
+    mode = 'confirm';
+    handlers = h || {};
+    winner = g; winnerIdx = 0; candidates = [g]; cards = [g];
+    strip.innerHTML = cardHtml(g, 0);
+    x = MID; lastIdx = 0;                    // capa no centro, sem o "tique" da troca de capa
+    strip.children[0].classList.add('win');
+    title.textContent = '🎮 Bora jogar?';
+    hint.classList.add('hidden');
+    result.innerHTML = `<b>${esc(g.name)}</b>
+      <button class="rl-play">🎮 Vou jogar</button>
+      <button class="rl-other ghost">Não vou jogar agora, vou escolher outro</button>`;
+    result.classList.remove('hidden');
+    phase = 'done';
+    el.classList.remove('hidden');
+    place();                                 // depois de mostrar: escondida, a largura da tela é 0
+    void el.offsetWidth;
+    el.classList.add('in');
+    buzz(30);
+  }
+
+  return { open, confirm };
 })();

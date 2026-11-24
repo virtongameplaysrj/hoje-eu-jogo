@@ -29,7 +29,7 @@ async function loadLibrary() {
     g.cats = cats;
     for (const k of cats) state.byCat.get(k).push(g);
   }
-  state.byCat.set('now', nowGames());          // lista "Estou jogando agora" (now.js)
+  for (const k of Object.keys(LISTS)) state.byCat.set(k, listGames(k));   // "Estou jogando" com a Gi e sozinho (now.js)
   $('#libCount').textContent =
     `${state.all.length} jogos · ${state.all.filter((g) => !g.minutes).length} nunca jogados` +
     (hidden.size ? ` · ${hidden.size} ocultos` : '');
@@ -37,21 +37,39 @@ async function loadLibrary() {
 
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
-const RECENT_ROUNDS = 3;      // um jogo sorteado fica fora das próximas N rodadas
+const RECENT_ROUNDS = 3;      // um jogo sorteado fica fora das próximas N rodadas (no máximo metade da lista)
+const AGENDA_BOOST = 2;       // na lista "sozinho", o jogo marcado na agenda para agora tem 2× mais chance
 
-/** Sorteio com peso: jogos nunca jogados têm 3x mais chance; os últimos sorteados ficam de fora. */
-function weightedPick(list) {
-  const recent = store.get('recent', []);
+/** Contexto do sorteio: 'gi', 'now' (sozinho) ou 'all' (categorias e "Me surpreenda"). */
+const pickContext = () => (isListCat(state.cat) ? state.cat : 'all');
+
+/**
+ * Sorteio com peso (pesos em Stats.weight). Os últimos sorteados de CADA contexto ficam de fora,
+ * e numa lista pequena só até metade dela (2 jogos → alternam, em vez de todos ficarem "recentes").
+ */
+function weightedPick(list, ctx = pickContext()) {
+  let saved = store.get('recent', {});
+  if (Array.isArray(saved)) saved = {};          // formato antigo: uma lista só para o app inteiro
+  const recent = (saved[ctx] || []).slice(0, Math.min(RECENT_ROUNDS, Math.floor(list.length / 2)));
   const fresh = list.filter((g) => !recent.includes(g.id));
-  if (fresh.length) list = fresh;               // se todos são recentes, sorteia entre eles mesmo
-  // pesos do histórico do app (stats.js): rodízio no "Estou jogando", exploração no resto
-  const mode = state.cat === 'now' ? 'now' : 'all';
-  const w = list.map((g) => Stats.weight(g, mode));
+  if (fresh.length) list = fresh;
+  const live = ctx === 'now' ? Agenda.current() : null;
+  const agendaId = live && live.live && live.block.game ? live.block.game.id : null;
+  const w = list.map((g) => Stats.weight(g, ctx === 'all' ? 'all' : 'now', ctx) * (g.id === agendaId ? AGENDA_BOOST : 1));
   let r = Math.random() * w.reduce((a, b) => a + b, 0);
   let pick = list[list.length - 1];
   for (let i = 0; i < list.length; i++) { r -= w[i]; if (r <= 0) { pick = list[i]; break; } }
-  store.set('recent', [pick.id, ...recent.filter((id) => id !== pick.id)].slice(0, RECENT_ROUNDS));
+  saved[ctx] = [pick.id, ...(saved[ctx] || []).filter((id) => id !== pick.id)].slice(0, RECENT_ROUNDS);
+  store.set('recent', saved);
   return pick;
+}
+
+/** "Me surpreenda": sorteia primeiro a categoria (todas com a mesma chance), depois o jogo dentro dela. */
+function surprisePick(list) {
+  const byCat = new Map();
+  for (const g of list) for (const k of g.cats || ['other']) (byCat.get(k) || byCat.set(k, []).get(k)).push(g);
+  const cats = [...byCat.keys()];
+  return weightedPick(byCat.get(cats[(Math.random() * cats.length) | 0]), 'all');
 }
 
 /* ---------------- home ---------------- */
@@ -74,7 +92,8 @@ function renderHome() {
 }
 
 /* ---------------- roteamento (hash) ---------------- */
-/* Telas: ''=início · #cats=categorias · #now-pick=escolher/confirmar · #c=<key>=prateleira */
+/* Telas: ''=início · #cats=categorias · #pick=<lista>[&edit=1]=escolher/confirmar/editar ·
+   #c=<key>=prateleira · #agenda · #agenda-edit · #playing · #history */
 function go(cat, focusId) { location.hash = `c=${cat}` + (focusId ? `&g=${encodeURIComponent(focusId)}` : ''); }
 function showScreen(id) {
   for (const s of document.querySelectorAll('.screen')) s.classList.toggle('hidden', s.id !== id);
@@ -85,7 +104,11 @@ function route() {
   if (cat && state.byCat.has(cat)) return openShelf(cat, new URLSearchParams(h).get('g'));
   closeShelf();
   if (h === 'cats') showScreen('home');
-  else if (h === 'now-pick') openPicker();
+  else if (h.startsWith('pick=') || h === 'now-pick') {
+    const p = new URLSearchParams(h);
+    openPicker(isListCat(p.get('pick')) ? p.get('pick') : 'now', p.has('edit'));
+  }
+  else if (h === 'agenda' || h === 'agenda-edit') openAgenda(h === 'agenda-edit');
   else if (h === 'playing') openPlaying();
   else if (h === 'history') openHistory();
   else { renderStart(); showScreen('start'); }
@@ -93,13 +116,13 @@ function route() {
 window.addEventListener('hashchange', route);
 
 /* ---------------- prateleira ---------------- */
-const NOW_CAT = { key: 'now', label: 'Estou jogando agora', emoji: '🎮' };
 
 function openShelf(cat, focusId) {
-  const c = cat === 'now' ? NOW_CAT : CATEGORIES.find((x) => x.key === cat);
+  const c = LISTS[cat] || CATEGORIES.find((x) => x.key === cat);
   if (state.cat !== cat) { state.cat = cat; state.filter = 'all'; }
   showScreen('shelf');
   $('#shelfTitle').textContent = `${c.emoji} ${c.label}`;
+  $('#editList').hidden = !isListCat(cat);
   renderChips();
   buildList(focusId);
 }
@@ -233,7 +256,7 @@ $('#track').addEventListener('click', (e) => {
   const slot = e.target.closest('.slot');
   if (!slot) return;
   const i = +slot.dataset.i;
-  if (i === state.idx) toggleSound();
+  if (i === state.idx) askToPlay(state.list[i]);   // o som fica no botão 🔇 do trailer
   else scrollToIndex(i);
 });
 
@@ -268,7 +291,7 @@ function showInfo(g) {
   const yt = $('#infoYt');
   yt.hidden = !!(g.trailer || g.youtube);
   yt.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(g.name + ' gameplay')}`;
-  $('#hideBtn').textContent = state.cat === 'now' ? 'Tirar da lista' : (g.id.startsWith('ps2:') ? 'Remover jogo' : 'Ocultar jogo');
+  $('#hideBtn').textContent = isListCat(state.cat) ? 'Tirar da lista' : (g.id.startsWith('ps2:') ? 'Remover jogo' : 'Ocultar jogo');
 
   const img = $('#stageImg');
   img.src = g.hero || g.cover || '';
@@ -307,6 +330,8 @@ function playTrailer(g) {
     snd.hidden = false;
   }
   snd.textContent = state.muted ? '🔇' : '🔊';
+  // tocar na capa agora abre "Vou jogar"; avisa uma vez onde ficou o som
+  if (!snd.hidden && !store.get('soundHint', false)) { store.set('soundHint', true); toast('Toque em 🔇 (no alto) para ouvir o trailer'); }
 }
 
 const ytUrl = (id) => `https://www.youtube.com/embed/${id}?autoplay=1&mute=${state.muted ? 1 : 0}&controls=0&loop=1&playlist=${id}&playsinline=1&rel=0`;
@@ -354,29 +379,44 @@ $('#backBtn').onclick = () => history.back();
 $('#pickHere').onclick = () => {
   if (!state.list.length) return;
   stopTrailer();                                  // não misturar o trailer com o circo
+  const list = isListCat(state.cat) ? state.cat : null;
   Roulette.open(state.list, {
-    onPlay: startPlaying,
+    onPlay: (g) => startPlaying(g, list),
     onShow: (g) => scrollToIndex(state.list.indexOf(g)),
+    // recusou 3 vezes na semana um jogo da lista "Estou jogando" → oferece tirar da lista
+    offerRemove: list ? (g) => (Stats.rejectsThisWeek(g.id) >= 3 ? LISTS[list].label : null) : null,
+    onRemove: async (g) => { removeFromNow(list, g.id); toast(`Tirado da lista "${LISTS[list].label}"`); await refresh(); },
   });
 };
 
 $('#surpriseAll').onclick = () => {
-  Roulette.open(state.all, { onPlay: startPlaying, onShow: (g) => go(g.cats[0], g.id) });
+  Roulette.open(state.all, { pick: surprisePick, onPlay: (g) => startPlaying(g, null), onShow: (g) => go(g.cats[0], g.id) });
 };
 
-/** "Vou jogar": registra no histórico e abre a tela do timer. */
-function startPlaying(g) {
+/** Escolha manual (tocou no jogo do meio, ou na agenda): a mesma pergunta do fim da roleta. */
+function askToPlay(g, list = isListCat(state.cat) ? state.cat : null) {
+  if (!g) return;
   stopTrailer();
-  Stats.start(g);
+  Roulette.confirm(g, {
+    onPlay: (x) => startPlaying(x, list),
+    // "não vou jogar agora": volta para a prateleira com o trailer de novo (sem contar como recusa)
+    onCancel: () => { if (state.cat && state.list[state.idx] === g) showInfo(g); },
+  });
+}
+
+/** "Vou jogar": registra no histórico (com a lista de onde veio: 'gi', 'now' ou null) e abre o timer. */
+function startPlaying(g, list = null) {
+  stopTrailer();
+  Stats.start(g, list);
   location.hash = 'playing';
 }
 
 $('#hideBtn').onclick = async () => {
   const g = state.list[state.idx];
   if (!g) return;
-  if (state.cat === 'now') {                     // na lista "Estou jogando", só tira da lista
-    removeFromNow(g.id);
-    toast('Tirado da lista "Estou jogando"');
+  if (isListCat(state.cat)) {                    // nas listas "Estou jogando", só tira da lista
+    removeFromNow(state.cat, g.id);
+    toast(`Tirado da lista "${LISTS[state.cat].label}"`);
   } else if (g.id.startsWith('ps2:')) {
     store.set('ps2', store.get('ps2', []).filter((x) => x.id !== g.id));
     toast('Jogo removido');

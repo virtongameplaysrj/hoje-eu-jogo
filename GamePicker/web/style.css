@@ -268,3 +268,50 @@ input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1p
 dialog textarea { width: 100%; font: inherit; font-size: 12px; color: var(--text); background: var(--bg);
   border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
 .hist-backup .hint { margin: 0 0 12px; line-height: 1.45; }
+
+/* ---------- duas listas "Estou jogando" + editar a qualquer momento ---------- */
+.group { height: 150px; }
+#groupGi { border-color: #ec4899; box-shadow: 0 10px 30px rgba(236,72,153,.22);
+  background: radial-gradient(120% 90% at 85% 10%, rgba(236,72,153,.42), transparent 60%),
+  radial-gradient(90% 80% at 10% 100%, rgba(139,92,246,.3), transparent 60%), var(--panel); }
+.group .edit { position: absolute; top: 10px; right: 10px; z-index: 2; padding: 7px 12px; border-radius: 20px;
+  font-size: 13px; font-weight: 600; background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.25); }
+.toolbar-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.toolbar-row h3 { margin: 0; }
+#editList[hidden] { display: none; }
+
+/* ---------- agenda ---------- */
+#agenda { display: flex; flex-direction: column; }
+.agenda-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--text);
+  border-color: var(--accent2); }
+.agenda-btn small { font-size: 12px; font-weight: 400; color: var(--muted); max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#agendaWeek, #agendaSetup { padding: 0 16px; }
+#agendaWeek[hidden], #agendaSetup[hidden] { display: none; }
+.ag-day { margin: 14px 0 0; display: grid; gap: 6px; }
+.ag-day h3 { margin: 0 0 2px; font-size: 15px; }
+.ag-day h3 small { color: var(--muted); font-weight: 400; font-size: 12px; }
+.ag-day.today h3 { color: var(--accent2); }
+.ag-day.today .prow { border-color: rgba(34,211,238,.45); }
+.ag-day.past { opacity: .5; }
+.ag-row:disabled { opacity: .6; }
+.ag-badge { flex: none; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px;
+  background: var(--line); color: var(--text); text-transform: uppercase; letter-spacing: .4px; }
+.ag-badge.live { background: var(--accent2); color: var(--bg); }
+.ag-note { margin: 14px 0 0; line-height: 1.45; }
+.ag-warn { margin-top: 10px; padding: 12px; border-radius: 12px; border: 1px solid #f59e0b; background: rgba(245,158,11,.1); }
+.ag-warn p { margin: 0 0 10px; font-size: 14px; }
+.ag-intro { margin: 0 0 6px; font-size: 13.5px; line-height: 1.45; }
+.ag-edit { margin-top: 8px; padding: 10px 12px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); }
+.ag-edit.on { border-color: var(--accent); }
+.ag-edit-head { display: flex; align-items: center; justify-content: space-between; }
+.ag-range { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.ag-range span { color: var(--muted); font-size: 13px; }
+.ag-range input { flex: 1; min-width: 0; padding: 9px; font: inherit; color: var(--text); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 10px; color-scheme: dark; }
+.ag-del { flex: none; width: 36px; height: 36px; padding: 0; border-radius: 50%; background: transparent;
+  border: 1px solid var(--line); color: var(--muted); }
+.ag-opts { display: grid; gap: 10px; margin: 14px 0 4px; }
+.ag-opts label { font-size: 13px; color: var(--muted); }
+.ag-opts select { display: block; width: 100%; margin-top: 4px; padding: 10px; font: inherit; color: var(--text);
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
