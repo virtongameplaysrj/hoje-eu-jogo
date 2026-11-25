@@ -38,7 +38,7 @@ async function loadLibrary() {
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
 const RECENT_ROUNDS = 3;      // um jogo sorteado fica fora das próximas N rodadas (no máximo metade da lista)
-const AGENDA_BOOST = 2;       // na lista "sozinho", o jogo marcado na agenda para agora tem 2× mais chance
+const AGENDA_BOOST = 2;       // na lista "sozinho", os jogos da agenda de hoje ainda não jogados têm 2× mais chance
 
 /** Contexto do sorteio: 'gi', 'now' (sozinho) ou 'all' (categorias e "Me surpreenda"). */
 const pickContext = () => (isListCat(state.cat) ? state.cat : 'all');
@@ -53,9 +53,8 @@ function weightedPick(list, ctx = pickContext()) {
   const recent = (saved[ctx] || []).slice(0, Math.min(RECENT_ROUNDS, Math.floor(list.length / 2)));
   const fresh = list.filter((g) => !recent.includes(g.id));
   if (fresh.length) list = fresh;
-  const live = ctx === 'now' ? Agenda.current() : null;
-  const agendaId = live && live.live && live.block.game ? live.block.game.id : null;
-  const w = list.map((g) => Stats.weight(g, ctx === 'all' ? 'all' : 'now', ctx) * (g.id === agendaId ? AGENDA_BOOST : 1));
+  const agendaIds = new Set(ctx === 'now' ? Agenda.todayPending() : []);
+  const w = list.map((g) => Stats.weight(g, ctx === 'all' ? 'all' : 'now', ctx) * (agendaIds.has(g.id) ? AGENDA_BOOST : 1));
   let r = Math.random() * w.reduce((a, b) => a + b, 0);
   let pick = list[list.length - 1];
   for (let i = 0; i < list.length; i++) { r -= w[i]; if (r <= 0) { pick = list[i]; break; } }

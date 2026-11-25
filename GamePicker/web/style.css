@@ -282,6 +282,7 @@ dialog textarea { width: 100%; font: inherit; font-size: 12px; color: var(--text
 
 /* ---------- agenda ---------- */
 #agenda { display: flex; flex-direction: column; }
+#agenda > * { flex-shrink: 0; }   /* semana longa: sem isso a barra Hoje/Semana (overflow-x) encolhia até sumir */
 .agenda-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--text);
   border-color: var(--accent2); }
 .agenda-btn small { font-size: 12px; font-weight: 400; color: var(--muted); max-width: 100%;
@@ -293,11 +294,26 @@ dialog textarea { width: 100%; font: inherit; font-size: 12px; color: var(--text
 .ag-day h3 small { color: var(--muted); font-weight: 400; font-size: 12px; }
 .ag-day.today h3 { color: var(--accent2); }
 .ag-day.today .prow { border-color: rgba(34,211,238,.45); }
-.ag-day.past { opacity: .5; }
-.ag-row:disabled { opacity: .6; }
-.ag-badge { flex: none; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px;
-  background: var(--line); color: var(--text); text-transform: uppercase; letter-spacing: .4px; }
-.ag-badge.live { background: var(--accent2); color: var(--bg); }
+.ag-day.past h3 { opacity: .6; }
+.ag-tabs { padding: 4px 16px 0; }
+.ag-tabs[hidden] { display: none; }
+.ag-mark { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line);
+  display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; }
+.ag-mark.on { background: var(--accent2); border-color: var(--accent2); color: var(--bg); }
+.ag-row.done .nm small { color: var(--accent2); }
+.ag-row.live { border-color: var(--accent2); }
+.ag-row.live .nm small { color: var(--accent2); }
+.ag-row.later { opacity: .55; }
+.ag-today { display: grid; gap: 8px; margin-top: 12px; }
+.ag-today .prow { padding: 12px; }
+.ag-today .prow img, .ag-today .prow .ph { width: 48px; height: 68px; }
+.ag-today .prow .nm { font-size: 16px; }
+.ag-today .prow .nm small { font-size: 12px; margin-top: 2px; }
+.ag-sub { margin: 18px 0 0; font-size: 13px; color: var(--muted); font-weight: 600; }
+.ag-also { margin: 0; font-size: 12px; color: var(--muted); }
+.ag-yay { margin: 12px 0 0; text-align: center; font-weight: 600; color: var(--accent2); }
+.ag-free { margin-top: 14px; padding: 18px 14px; border-radius: 12px; background: var(--panel);
+  border: 1px solid var(--line); text-align: center; }
 .ag-note { margin: 14px 0 0; line-height: 1.45; }
 .ag-warn { margin-top: 10px; padding: 12px; border-radius: 12px; border: 1px solid #f59e0b; background: rgba(245,158,11,.1); }
 .ag-warn p { margin: 0 0 10px; font-size: 14px; }

@@ -108,15 +108,19 @@
         <p class="sub" id="agendaHead"></p>
       </div>
     </header>
+    <div class="chips ag-tabs" id="agendaTabs" hidden>
+      <button class="chip" data-v="today">🎯 Só hoje</button>
+      <button class="chip" data-v="week">📅 Semana toda</button>
+    </div>
     <div id="agendaWeek"></div>
     <div id="agendaSetup" hidden>
       <p class="hint ag-intro">Em quais dias e horários você costuma ter tempo para jogar sozinho?
-        Eu distribuo os jogos da sua lista "Estou jogando sozinho" nesses horários.</p>
+        Eu escolho para cada dia até 3 jogos da sua lista "Estou jogando sozinho".</p>
       <div id="agendaDays"></div>
       <div class="ag-opts">
-        <label>Cada jogo fica
+        <label>Cada jogo fica pelo menos (no máximo 3 jogos por dia)
           <select id="agendaSession">
-            <option value="0">o horário inteiro</option>
+            <option value="0">1 jogo por dia</option>
             <option value="30">30 min</option>
             <option value="45">45 min</option>
             <option value="60">1 hora</option>

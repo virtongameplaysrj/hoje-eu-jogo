@@ -102,7 +102,7 @@ const Stats = (() => {
   }
 
   /* ---------- backup (texto para copiar/colar) ---------- */
-  const BACKUP_KEYS = ['stats', 'log', 'now', 'nowGi', 'agenda', 'ps2', 'hidden', 'session', 'recent'];
+  const BACKUP_KEYS = ['stats', 'log', 'now', 'nowGi', 'agenda', 'agendaDays', 'ps2', 'hidden', 'session', 'recent'];
   function exportText() {
     const data = { app: 'hoje-eu-jogo', v: 1, at: new Date().toISOString() };
     for (const k of BACKUP_KEYS) data[k] = store.get(k, null);

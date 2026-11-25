@@ -1,36 +1,57 @@
 /* Agenda (no estilo do Rotina Gentil): o app pergunta os horários livres de cada dia da semana
-   e distribui neles os jogos da lista "Estou jogando sozinho".
+   e escolhe para cada dia até 3 jogos da lista "Estou jogando sozinho", na ordem que você quiser.
    Salvo como { slots: { 1: [{ start: '19:00', end: '21:00' }], ... }, session: 60 }
-   (dias como Date.getDay: 0 = domingo; session 0 = um jogo para o horário inteiro). */
+   (dias como Date.getDay: 0 = domingo; session = tempo mínimo por jogo; 0 = um jogo por dia).
+   Os jogos de cada dia ficam guardados em 'agendaDays' ({ 'AAAA-M-D': { sig, games } }) quando o dia
+   começa: assim dá para ver depois o que estava marcado e o que foi jogado. */
 const Agenda = (() => {
   const DAY_NAMES = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
   const WEEK = [1, 2, 3, 4, 5, 6, 0];          // a semana começa na segunda
-  const DAY = 864e5;
+  const DAY = 864e5, HOUR = 36e5;
+  const MAX_PER_DAY = 3;                        // no máximo 3 jogos por dia, seja quanto for o tempo livre
+  const DAY_SHIFT = 4 * HOUR;                   // o dia da agenda vai até as 4h: jogar à 1h ainda conta para a noite anterior
+  const DONE_MIN = 5;                           // 5 min ou mais naquele dia = "joguei"
+  const KEEP_DAYS = 35;                         // quanto tempo os dias guardados ficam salvos
 
   const load = () => store.get('agenda', null);
   const save = (cfg) => store.set('agenda', cfg);
   const hasSlots = (cfg) => !!cfg && WEEK.some((d) => (cfg.slots[d] || []).length);
   const toMin = (t) => { const [h, m] = String(t).split(':').map(Number); return h * 60 + (m || 0); };
   const hhmm = (m) => `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+  const keyOf = (d) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 
-  /** Horários da semana picados em blocos (um jogo por bloco), em ordem de segunda a domingo. */
-  function blocks(cfg) {
-    const out = [];
-    for (const day of WEEK) {
-      const ranges = (cfg.slots[day] || []).map((r) => {
-        const s = toMin(r.start); let e = toMin(r.end);
-        if (e <= s) e += 1440;                   // 22:00 até 01:00 passa da meia-noite
-        return { s, e };
-      }).sort((a, b) => a.s - b.s);
-      for (const { s, e } of ranges) {
-        const len = e - s, size = cfg.session > 0 ? cfg.session : len;
-        let n = Math.max(1, Math.floor(len / size));
-        if (len - n * size >= size / 2) n++;     // sobra de meia sessão ou mais vira um bloco curto; menos que isso, estica o último
-        for (let i = 0; i < n; i++) out.push({ day, start: s + i * size, end: i === n - 1 ? e : s + (i + 1) * size });
-      }
-    }
-    return out;
+  /** Data (meia-noite) do dia da agenda em que o instante t cai. */
+  const dayOf = (t) => { const d = new Date(t - DAY_SHIFT); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); };
+
+  /** Os 7 dias (segunda a domingo) da semana de `now`, com início e fim (4h → 4h do dia seguinte). */
+  function weekDays(now = Date.now()) {
+    const t = dayOf(now);
+    const mon = new Date(t.getFullYear(), t.getMonth(), t.getDate() - ((t.getDay() + 6) % 7));
+    return WEEK.map((_, k) => {
+      const date = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + k);
+      const next = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + k + 1);
+      return { date, key: keyOf(date), wd: date.getDay(), start: date.getTime() + DAY_SHIFT, end: next.getTime() + DAY_SHIFT };
+    });
   }
+
+  /** Minutos livres de um dia da semana (soma dos horários; 22:00–01:00 vale 3 h). */
+  function freeMinutes(cfg, wd) {
+    return (cfg.slots[wd] || []).reduce((s, r) => {
+      const a = toMin(r.start); let b = toMin(r.end);
+      if (b <= a) b += 1440;
+      return s + b - a;
+    }, 0);
+  }
+
+  /** Quantos jogos no dia: um a cada `session` minutos livres, de 1 a 3 (session 0 = sempre 1). */
+  function gamesFor(cfg, wd) {
+    const free = freeMinutes(cfg, wd);
+    if (!free) return 0;
+    return cfg.session > 0 ? Math.max(1, Math.min(MAX_PER_DAY, Math.floor(free / cfg.session))) : 1;
+  }
+
+  const windowText = (cfg, wd) => (cfg.slots[wd] || []).slice().sort((a, b) => toMin(a.start) - toMin(b.start))
+    .map((r) => `${r.start}–${r.end}`).join(' · ');
 
   /** Nº da semana (segunda a domingo) desde 1970: faz o rodízio continuar de uma semana para a outra. */
   function weekIndex(date = new Date()) {
@@ -38,114 +59,154 @@ const Agenda = (() => {
     return Math.floor(Math.round((d - Date.UTC(1970, 0, 5)) / DAY) / 7);   // 05/01/1970 foi segunda
   }
 
+  const snap = (g) => ({ id: g.id, name: g.name, cover: g.cover || null });
+
   /**
-   * Distribui os jogos da lista "sozinho" pelos blocos da semana.
-   *  - Horários que já passaram: rodízio simples na ordem da lista (só para referência).
-   *  - Do horário atual em diante: cada bloco vai para o jogo com MENOS tempo na semana
-   *    (minutos jogados sozinho desde segunda + minutos já marcados nos próximos blocos).
-   *    Jogou um jogo fora da agenda? Os próximos horários passam para os outros.
-   *  - Empate: segue o rodízio a partir da posição do bloco, na ordem da lista girada a cada semana
-   *    (a semana seguinte começa de onde esta parou: com mais jogos que horários, nenhum fica de fora).
-   *  - Evita o mesmo jogo em dois blocos seguidos do mesmo dia.
-   *  - O bloco que está acontecendo só conta o que foi jogado ANTES dele começar (não muda no meio).
-   * Determinístico: os mesmos horários, lista e sessões dão sempre a mesma agenda.
+   * A semana inteira: para cada dia, os jogos marcados (até 3), quanto de cada um foi jogado e
+   * o que foi jogado fora da agenda. Sessões com a Gi não contam; as das categorias contam.
+   *  - Escolha de um dia: os jogos com MENOS minutos jogados sozinho na semana; empate = rodízio
+   *    na ordem da lista (girada a cada semana, para nenhum ficar de fora quando há mais jogos que vagas).
+   *  - Dias passados e hoje só olham o que foi jogado ANTES do dia começar: o dia não muda enquanto você joga.
+   *    Hoje fica guardado; se os horários de hoje mudarem, recalcula mantendo o que já foi jogado.
+   *  - Dias seguintes são uma previsão: contam o que já foi jogado mais o que está marcado antes deles.
    */
-  function plan(cfg = load(), games = listGames('now'), date = new Date()) {
+  function plan(cfg = load(), games = listGames('now'), now = Date.now()) {
     if (!hasSlots(cfg)) return [];
-    const bl = blocks(cfg);
-    if (!games.length) return bl.map((b) => ({ ...b, game: null }));
-    const n = games.length, off = (weekIndex(date) * bl.length) % n;
+    const days = weekDays(now);
+    const todayKey = keyOf(dayOf(now));
+    const ti = days.findIndex((d) => d.key === todayKey);
+    const sessions = Stats.sessionsSince(days[0].start).filter((e) => e.list !== 'gi');
+    const live = Stats.session();
+    const n = games.length;
+    const inList = new Map(games.map((g) => [g.id, g]));
+    const lib = new Map(state.all.map((g) => [g.id, g]));
+    const resolve = (g) => inList.get(g.id) || lib.get(g.id) || g;
+    const counts = days.map((d) => Math.min(gamesFor(cfg, d.wd), n));
+    const off = n ? (weekIndex(days[0].date) * counts.reduce((a, b) => a + b, 0)) % n : 0;
     const order = games.map((_, i) => games[(off + i) % n]);
-    const monday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - ((date.getDay() + 6) % 7)).getTime();
-    const nowMin = (date.getTime() - monday) / 60000;                 // minutos desde segunda 00:00
-    const played = Stats.sessionsSince(monday).filter((e) => Stats.inList(e, 'now'));
-    const playedBefore = (id, t) => played.reduce((m, e) => m + (e.id === id && e.start < t ? e.minutes : 0), 0);
-    const assigned = new Map();
-    let prev = null;
-    return bl.map((b, i) => {
-      const base = WEEK.indexOf(b.day) * 1440, bStart = base + b.start, bEnd = base + b.end;
-      let game;
-      if (bEnd <= nowMin) game = order[i % n];
-      else {
-        const t = bStart <= nowMin ? monday + bStart * 60000 : Infinity;
-        let best = Infinity;
-        // desempate a partir da posição deste bloco: sem jogadas na semana, fica igual ao rodízio simples
-        for (let k = 0; k < n; k++) {
-          const g = order[(i + k) % n];
-          if (n > 1 && prev && prev.day === b.day && prev.game === g) continue;
-          const load = playedBefore(g.id, t) + (assigned.get(g.id) || 0);
-          if (load < best) { best = load; game = g; }
+    const minsBefore = (t) => {
+      const m = new Map();
+      for (const e of sessions) if (e.start < t) m.set(e.id, (m.get(e.id) || 0) + e.minutes);
+      return m;
+    };
+    let cursor = 0;
+    const choose = (want, keep, loadMap) => {
+      const chosen = keep.slice(0, want);
+      while (chosen.length < want) {
+        let best = null, bestLoad = Infinity;
+        for (let j = 0; j < n; j++) {
+          const g = order[(cursor + j) % n];
+          if (chosen.some((c) => c.id === g.id)) continue;
+          const l = loadMap.get(g.id) || 0;
+          if (l < bestLoad) { bestLoad = l; best = g; }
         }
-        assigned.set(game.id, (assigned.get(game.id) || 0) + b.end - b.start);
+        if (!best) break;
+        chosen.push(best);
       }
-      const out = { ...b, game };
-      prev = out;
-      return out;
+      return chosen;
+    };
+
+    const frozen = store.get('agendaDays', {});
+    let proj = null;                 // previsão dos dias seguintes (minutos já jogados + marcados)
+    const out = days.map((d, k) => {
+      const want = counts[k];
+      const est = want ? Math.round(freeMinutes(cfg, d.wd) / want) : 0;
+      const sig = JSON.stringify([cfg.slots[d.wd] || [], cfg.session || 0]);
+      const played = new Map();
+      for (const e of sessions) if (e.start >= d.start && e.start < d.end) played.set(e.id, (played.get(e.id) || 0) + e.minutes);
+      const fz = frozen[d.key];
+      let picked;
+      if (k < ti) {
+        // sem registro (agenda ainda não existia, ou o app não foi aberto): não inventa, mostra só o que foi jogado
+        picked = fz ? fz.games.map(resolve) : [];
+      } else if (k === ti) {
+        // guardado e com os mesmos horários: mantém (sem os que saíram da lista) e completa as vagas;
+        // horários mudaram: recalcula, começando pelos que já foram jogados hoje
+        const keep = fz && fz.sig === sig
+          ? fz.games.filter((g) => inList.has(g.id)).map(resolve)
+          : [...played].filter(([id]) => inList.has(id)).sort((a, b) => b[1] - a[1]).map(([id]) => inList.get(id));
+        picked = choose(want, keep, minsBefore(d.start));
+        const rec = { sig, games: picked.map(snap) };
+        if (JSON.stringify(rec) !== JSON.stringify(fz)) {
+          frozen[d.key] = rec;
+          const limit = d.start - KEEP_DAYS * DAY;
+          for (const key of Object.keys(frozen)) {
+            const [y, m, dd] = key.split('-').map(Number);
+            if (new Date(y, m - 1, dd).getTime() < limit) delete frozen[key];
+          }
+          store.set('agendaDays', frozen);
+        }
+        proj = minsBefore(Infinity);
+        for (const g of picked) if ((played.get(g.id) || 0) < est) proj.set(g.id, (proj.get(g.id) || 0) + est - (played.get(g.id) || 0));
+      } else {
+        picked = choose(want, [], proj);
+        for (const g of picked) proj.set(g.id, (proj.get(g.id) || 0) + est);
+      }
+      cursor += want;
+      const isLive = (id) => !!live && live.id === id && live.start >= d.start && live.start < d.end;
+      const item = (g, minutes) => ({ game: g, minutes, live: isLive(g.id), done: minutes >= DONE_MIN || isLive(g.id) });
+      const items = picked.map((g) => item(g, played.get(g.id) || 0));
+      const extra = [...played].filter(([id]) => !picked.some((g) => g.id === id))
+        .map(([id, m]) => {
+          const e = sessions.find((s) => s.id === id);
+          return item(resolve({ id, name: e.name, cover: (Stats.get(id) || {}).cover || null }), m);
+        })
+        .filter((it) => it.done);
+      return { ...d, when: k < ti ? 'past' : k === ti ? 'today' : 'future', window: windowText(cfg, d.wd), est, items, extra };
     });
+    return out;
   }
 
-  /** Bloco acontecendo agora (ou o próximo de hoje). */
-  function current(p = plan(), now = new Date()) {
-    const d = now.getDay(), min = now.getHours() * 60 + now.getMinutes(), yest = (d + 6) % 7;
-    const live = p.find((b) => (b.day === d && b.start <= min && min < b.end) ||
-      (b.day === yest && b.end > 1440 && min < b.end - 1440));
-    if (live) return { block: live, live: true };
-    const next = p.find((b) => b.day === d && b.start > min);
-    return next ? { block: next, live: false } : null;
-  }
+  /** Hoje (ou null sem agenda). */
+  const today = (p = plan()) => p.find((d) => d.when === 'today') || null;
+  /** Ids dos jogos de hoje ainda não jogados (ganham bônus na roleta "sozinho"). */
+  const todayPending = () => { const t = today(); return t ? t.items.filter((i) => !i.done).map((i) => i.game.id) : []; };
 
-  return { DAY_NAMES, WEEK, load, save, hasSlots, toMin, hhmm, blocks, plan, current, weekIndex };
+  return { DAY_NAMES, WEEK, MAX_PER_DAY, load, save, hasSlots, toMin, hhmm, plan, today, todayPending, weekIndex };
 })();
 
 /* ---------------- tela ---------------- */
-const agendaUi = { draft: null };
+const agendaUi = { draft: null, games: new Map(), view: store.get('agendaView', 'today') };
 
 function openAgenda(edit) {
   const cfg = Agenda.load();
   if (edit || !Agenda.hasSlots(cfg)) openAgendaSetup(cfg);
-  else renderAgendaWeek();
+  else renderAgendaView();
   showScreen('agenda');
 }
 
-function renderAgendaWeek() {
+const shortDate = (d) => d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'numeric' });
+
+/** Uma linha de jogo: ✓ jogado, jogando agora, ficou para depois (dia passado) ou o tempo sugerido. */
+function agendaRow(it, day) {
+  const g = it.game;
+  agendaUi.games.set(g.id, g);
+  const thumb = g.cover ? `<img src="${g.cover}" alt="" loading="lazy">` : `<span class="ph">🎮</span>`;
+  let info, cls = '';
+  if (it.live) { info = `jogando agora · ${fmtMinutes(it.minutes)}`; cls = ' live'; }
+  else if (it.done) { info = `joguei ${fmtMinutes(it.minutes)}`; cls = ' done'; }
+  else if (day.when === 'past') { info = 'ficou para depois'; cls = ' later'; }
+  else info = day.est ? `uns ${fmtMinutes(day.est)}` : '';
+  const mark = it.done ? `<span class="ag-mark on">✓</span>` : `<span class="ag-mark"></span>`;
+  return `<button class="prow ag-row${cls}" data-id="${esc(g.id)}">${thumb}
+    <span class="nm">${esc(g.name)}<small>${info}</small></span>${mark}</button>`;
+}
+
+function renderAgendaView() {
   $('#agendaSetup').hidden = true;
   $('#agendaWeek').hidden = false;
+  $('#agendaTabs').hidden = false;
   $('#agendaTitle').textContent = 'Minha agenda';
+  for (const b of document.querySelectorAll('#agendaTabs .chip')) b.classList.toggle('on', b.dataset.v === agendaUi.view);
+  agendaUi.games = new Map();
   const games = listGames('now');
   const p = Agenda.plan();
-  const cur = Agenda.current(p);
-  const now = new Date();
-  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7));
-  const mins = p.reduce((s, b) => s + b.end - b.start, 0);
-  $('#agendaHead').textContent = `Semana de ${monday.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' })} · ` +
-    `${p.length} ${p.length === 1 ? 'horário' : 'horários'} · ${fmtMinutes(mins)} para jogar sozinho`;
-
   let html = '';
   if (!games.length) {
     html += `<div class="ag-warn"><p>Sua lista "Estou jogando sozinho" está vazia, então não há jogos para distribuir.</p>
       <button class="ghost" id="agendaFill">✏️ Escolher meus jogos</button></div>`;
-  } else if (games.length > p.length) {
-    html += `<p class="hint ag-note">Você tem ${games.length} jogos e ${p.length} horários: os que não couberem esta semana entram na próxima.</p>`;
   }
-  Agenda.WEEK.forEach((day, k) => {
-    const items = p.map((b, i) => ({ ...b, i })).filter((b) => b.day === day);
-    if (!items.length) return;
-    const date = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + k);
-    const isToday = date.toDateString() === now.toDateString();
-    const past = date < new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    html += `<div class="ag-day${isToday ? ' today' : ''}${past ? ' past' : ''}">
-      <h3>${isToday ? 'Hoje · ' : ''}${Agenda.DAY_NAMES[day]} <small>${date.toLocaleDateString('pt-BR', { day: 'numeric', month: 'numeric' })}</small></h3>
-      ${items.map((b) => {
-        const g = b.game;
-        const thumb = g && g.cover ? `<img src="${g.cover}" alt="" loading="lazy">` : `<span class="ph">🎮</span>`;
-        const badge = cur && cur.block === p[b.i] ? `<span class="ag-badge${cur.live ? ' live' : ''}">${cur.live ? 'agora' : 'próximo'}</span>` : '';
-        return `<button class="prow ag-row" data-i="${b.i}"${g ? '' : ' disabled'}>${thumb}
-          <span class="nm">${g ? esc(g.name) : '—'}<small>${Agenda.hhmm(b.start)} – ${Agenda.hhmm(b.end)} · ${fmtMinutes(b.end - b.start)}</small></span>${badge}</button>`;
-      }).join('')}
-    </div>`;
-  });
-  html += `<p class="hint ag-note">Toque num jogo para começar a jogar e contar o tempo. Os próximos horários vão para os jogos
-    com menos tempo jogado na semana: se jogar um fora da agenda, ela se ajusta sozinha.</p>`;
+  html += agendaUi.view === 'week' ? agendaWeekHtml(p, games) : agendaTodayHtml(p);
   $('#agendaWeek').innerHTML = html;
   $('#agendaAction').textContent = '🕒 Mudar meus horários';
   $('#agendaAction').onclick = () => { location.hash = 'agenda-edit'; };
@@ -153,17 +214,67 @@ function renderAgendaWeek() {
   if (fill) fill.onclick = () => editList('now');
 }
 
+/** Visão de túnel: só hoje, sem os outros dias. */
+function agendaTodayHtml(p) {
+  const t = p.find((d) => d.when === 'today');
+  $('#agendaHead').textContent = `Hoje · ${Agenda.DAY_NAMES[t.wd]}, ${shortDate(t.date)}` + (t.window ? ` · ${t.window}` : '');
+  let html = '';
+  if (!t.items.length) {
+    html += `<div class="ag-free"><b>Hoje não tem horário marcado</b>
+      <p class="hint">Dia livre. Se der vontade de jogar, a lista "sozinho" continua lá.</p></div>`;
+  } else {
+    html += `<div class="ag-today">${t.items.map((it) => agendaRow(it, t)).join('')}</div>`;
+    if (t.items.every((it) => it.done && !it.live)) html += `<p class="ag-yay">Você jogou todos os de hoje 💜</p>`;
+  }
+  if (t.extra.length) html += `<h4 class="ag-sub">Também joguei hoje</h4><div class="ag-today">${t.extra.map((it) => agendaRow(it, t)).join('')}</div>`;
+  if (t.items.length) html += `<p class="hint ag-note">Jogue na ordem que quiser. Toque num jogo para começar a contar o tempo.
+    O que não der hoje volta nos próximos dias.</p>`;
+  return html;
+}
+
+/** Visão global: a semana inteira, com o que foi jogado e o que ficou para depois. */
+function agendaWeekHtml(p, games) {
+  const marked = p.reduce((s, d) => s + d.items.length, 0);
+  const done = p.reduce((s, d) => s + d.items.filter((it) => it.done).length, 0);
+  $('#agendaHead').textContent = `Semana de ${p[0].date.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' })} · ` +
+    `${marked} ${marked === 1 ? 'jogo marcado' : 'jogos marcados'} · ${done} ✓`;
+  let html = '';
+  if (games.length > marked && marked) {
+    html += `<p class="hint ag-note">Você tem ${games.length} jogos e ${marked} vagas na semana: os que não couberem entram na próxima.</p>`;
+  }
+  for (const d of p) {
+    if (!d.items.length && !d.extra.length) continue;
+    html += `<div class="ag-day ${d.when}">
+      <h3>${d.when === 'today' ? 'Hoje · ' : ''}${Agenda.DAY_NAMES[d.wd]} <small>${shortDate(d.date)}${d.window ? ' · ' + d.window : ''}</small></h3>
+      ${d.items.map((it) => agendaRow(it, d)).join('')}
+      ${d.extra.length ? `<p class="ag-also">Também: ${d.extra.map((it) => `${esc(it.game.name)} (${fmtMinutes(it.minutes)})`).join(' · ')}</p>` : ''}
+    </div>`;
+  }
+  html += `<p class="hint ag-note">Os próximos dias são uma previsão: vão para os jogos com menos tempo jogado na semana,
+    então se ajustam sozinhos conforme você joga.</p>`;
+  return html;
+}
+
+$('#agendaTabs').addEventListener('click', (e) => {
+  const b = e.target.closest('.chip');
+  if (!b || b.dataset.v === agendaUi.view) return;
+  agendaUi.view = b.dataset.v;
+  store.set('agendaView', agendaUi.view);
+  renderAgendaView();
+});
+
 $('#agendaWeek').addEventListener('click', (e) => {
   const row = e.target.closest('.ag-row');
   if (!row) return;
-  const b = Agenda.plan()[+row.dataset.i];
-  if (b && b.game) askToPlay(b.game, 'now');   // conta como jogada "sozinho"
+  const g = agendaUi.games.get(row.dataset.id);
+  if (g) askToPlay(g, 'now');   // conta como jogada "sozinho"
 });
 
 /* ---- perguntas: dias e horários livres ---- */
 function openAgendaSetup(cfg) {
   agendaUi.draft = cfg ? JSON.parse(JSON.stringify(cfg)) : { slots: {}, session: 60 };
   $('#agendaWeek').hidden = true;
+  $('#agendaTabs').hidden = true;
   $('#agendaSetup').hidden = false;
   $('#agendaTitle').textContent = cfg && Agenda.hasSlots(cfg) ? 'Meus horários' : 'Montar minha agenda';
   $('#agendaHead').textContent = 'Marque os dias e os horários livres';
@@ -234,18 +345,20 @@ function saveAgendaSetup() {
   if (!Agenda.hasSlots(d)) { toast('Marque pelo menos um horário livre'); return; }
   Agenda.save(d);
   toast('Agenda montada');
-  if (location.hash === '#agenda-edit') history.back();   // volta para a semana
-  else renderAgendaWeek();
+  if (location.hash === '#agenda-edit') history.back();   // volta para a agenda
+  else renderAgendaView();
 }
 
 $('#agendaBack').onclick = () => history.back();
 $('#openAgenda').onclick = () => { location.hash = 'agenda'; };
 
-/** Botão da tela inicial: mostra o jogo de agora (ou o próximo de hoje). */
+/** Botão da tela inicial: os jogos de hoje que faltam (sem mostrar os outros dias). */
 function renderAgendaButton() {
   const sub = $('#agendaSub');
-  if (!Agenda.hasSlots(Agenda.load())) { sub.textContent = 'Diga seus horários livres e eu distribuo os jogos'; return; }
-  const c = Agenda.current();
-  sub.textContent = !c || !c.block.game ? 'Ver a semana'
-    : c.live ? `Agora: ${c.block.game.name}` : `Hoje às ${Agenda.hhmm(c.block.start)}: ${c.block.game.name}`;
+  if (!Agenda.hasSlots(Agenda.load())) { sub.textContent = 'Diga seus horários livres e eu escolho os jogos de cada dia'; return; }
+  const t = Agenda.today();
+  if (!t || !t.items.length) { sub.textContent = 'Hoje é dia livre · ver a semana'; return; }
+  const left = t.items.filter((it) => !it.done), done = t.items.length - left.length;
+  sub.textContent = !left.length ? 'Hoje: tudo jogado ✓'
+    : `Hoje: ${left.map((it) => it.game.name).join(' · ')}` + (done ? ` (${done} ✓)` : '');
 }
