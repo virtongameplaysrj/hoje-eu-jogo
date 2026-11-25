@@ -164,9 +164,9 @@ dialog menu { display: flex; justify-content: flex-end; gap: 8px; padding: 0; ma
 .pick-box { padding: 10px 16px 0; }
 .pick-box input { width: 100%; padding: 12px; font: inherit; color: var(--text); background: var(--panel);
   border: 1px solid var(--line); border-radius: 12px; }
-.pick-box.manual { display: flex; gap: 8px; }
-.pick-box.manual input { flex: 1; }
 .results { display: grid; gap: 6px; margin-top: 6px; }
+/* coluna não cresce com nomes longos (sem isso o texto não corta com "…" e a linha sai da tela) */
+.results, .picked { grid-template-columns: minmax(0, 1fr); }
 .picker-actions { position: sticky; bottom: 0; margin-top: auto; padding: 14px 16px 18px;
   background: linear-gradient(180deg, transparent, var(--bg) 30%); }
 .picker-actions button { width: 100%; padding: 14px; font-size: 16px; }

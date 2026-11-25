@@ -87,7 +87,6 @@ function openPicker(list, edit) {
   picker.original = JSON.stringify(n.ids);
   picker.mode = edit ? 'edit' : (n.ids.length ? 'confirm' : 'new');
   $('#pickSearch').value = '';
-  $('#manualName').value = '';
   $('#pickResults').innerHTML = '';
   renderPicker();
   showScreen('picker');
@@ -118,9 +117,7 @@ function renderPicker() {
     : `<p class="empty-pick">Nenhum jogo ainda.</p>`;
   const full = games.length >= NOW_MAX;
   $('#pickSearch').disabled = full;
-  $('#pickSearch').placeholder = full ? `Lista cheia (${NOW_MAX}). Tire um para trocar.` : '🔍 Buscar na sua biblioteca…';
-  $('#manualName').disabled = full;
-  $('#manualAdd').disabled = full;
+  $('#pickSearch').placeholder = full ? `Lista cheia (${NOW_MAX}). Tire um para trocar.` : '🔍 Buscar ou digitar o nome do jogo…';
   const btn = $('#pickConfirm');
   btn.disabled = picker.mode !== 'edit' && !games.length;   // editando, pode até esvaziar a lista
   btn.textContent = picker.mode === 'edit' ? (changed ? '✓ Salvar lista' : '✓ Pronto')
@@ -145,7 +142,7 @@ const fold = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().rep
 function searchLibrary() {
   const q = fold($('#pickSearch').value);
   const box = $('#pickResults');
-  if (q.length < 2) { box.innerHTML = ''; return; }
+  if (q.length < 2) { box.innerHTML = ''; picker.hits = 0; return; }
   const words = q.split(' ');
   const taken = new Set(picker.draft.ids);
   // relevância: nome exato < começa com < palavras começam com < só contém
@@ -164,16 +161,26 @@ function searchLibrary() {
   hits.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
   hits.splice(15);
   for (let i = 0; i < hits.length; i++) hits[i] = hits[i][2];
+  picker.hits = hits.length;
+  // sem resultado (ou nenhum é o certo): adiciona o que foi digitado com um toque, sem redigitar
+  const typed = $('#pickSearch').value.trim();
+  const manualRow = `<button class="prow add manual-add">
+    <span class="ph">✍️</span><span class="nm">${hits.length ? 'Não é nenhum desses? ' : ''}Adicionar “${esc(typed)}”<small>fora da biblioteca · à mão</small></span><span class="x">＋</span></button>`;
   box.innerHTML = hits.length
-    ? hits.map((g) => rowHtml(g, 'add')).join('')
-    : `<p class="empty-pick">Nada encontrado. Você pode adicionar o nome à mão aqui embaixo.</p>`;
+    ? hits.map((g) => rowHtml(g, 'add')).join('') + manualRow
+    : `<p class="empty-pick">Não achei na sua biblioteca.</p>` + manualRow;
 }
 $('#pickSearch').addEventListener('input', searchLibrary);
+$('#pickSearch').addEventListener('keydown', (e) => {
+  // Enter sem nenhum resultado = adicionar à mão
+  if (e.key === 'Enter' && !picker.hits && fold($('#pickSearch').value).length >= 2) addManual();
+});
 
 $('#pickResults').addEventListener('click', (e) => {
   const row = e.target.closest('.prow');
   if (!row) return;
   if (picker.draft.ids.length >= NOW_MAX) { toast(`Máximo de ${NOW_MAX} jogos`); return; }
+  if (row.classList.contains('manual-add')) { addManual(); return; }
   picker.draft.ids.push(row.dataset.id);
   $('#pickSearch').value = '';
   $('#pickResults').innerHTML = '';
@@ -182,20 +189,21 @@ $('#pickResults').addEventListener('click', (e) => {
   if (picker.draft.ids.length < NOW_MAX) $('#pickSearch').focus();
 });
 
+/** Adiciona à lista o nome digitado na busca, como jogo "à mão". */
 function addManual() {
-  const name = $('#manualName').value.trim();
+  const name = $('#pickSearch').value.trim();
   if (!name) return;
   if (picker.draft.ids.length >= NOW_MAX) { toast(`Máximo de ${NOW_MAX} jogos`); return; }
   const g = { id: 'manual:' + Date.now(), name, stores: ['manual'], tags: [], minutes: 0,
     cover: null, hero: null, trailer: null, youtube: null, desc: 'Adicionado à mão.' };
   picker.draft.manual.push(g);
   picker.draft.ids.push(g.id);
-  $('#manualName').value = '';
+  $('#pickSearch').value = '';
+  $('#pickResults').innerHTML = '';
+  picker.hits = 0;
   renderPicker();
-  if (picker.draft.ids.length < NOW_MAX) $('#manualName').focus();
+  if (picker.draft.ids.length < NOW_MAX) $('#pickSearch').focus();
 }
-$('#manualAdd').onclick = addManual;
-$('#manualName').addEventListener('keydown', (e) => { if (e.key === 'Enter') addManual(); });
 
 $('#pickConfirm').onclick = () => {
   const ids = picker.draft.ids, list = picker.list;
